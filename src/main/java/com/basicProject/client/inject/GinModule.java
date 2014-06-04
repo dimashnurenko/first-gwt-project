@@ -13,33 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.basicProject.client.mainWindow;
+package com.basicProject.client.inject;
 
-import com.basicProject.client.entity.Employee;
-import com.basicProject.client.mvp.View;
-import com.google.gwt.user.client.ui.HasOneWidget;
-
-import java.util.List;
+import com.basicProject.client.mainWindow.MainWindowView;
+import com.basicProject.client.mainWindow.MainWindowViewImpl;
+import com.google.gwt.inject.client.AbstractGinModule;
 
 /**
  * @author Dmitry Shnurenko
  */
-public interface MainWindowView extends View<MainWindowView.ActionDelegate> {
+public class GinModule extends AbstractGinModule {
 
-    public interface ActionDelegate {
-
-        void onAddButtonClicked();
-
-        void onEditButtonClicked();
-
-        void onRemoveButtonClicked();
-
-        void onSelectedEmployee(Employee employee);
-
-        void go(HasOneWidget widget);
-
+    @Override
+    protected void configure() {
+        bind(MainWindowView.class).to(MainWindowViewImpl.class);
+//        bind(DialogWindowView.class).to(DialogWindowViewImpl.class);
     }
-
-    void setEmployeesList(List<Employee> list);
-
 }

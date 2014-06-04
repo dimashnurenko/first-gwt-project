@@ -19,7 +19,6 @@ package com.basicProject.client.mainWindow;
 
 import com.basicProject.client.Localization;
 import com.basicProject.client.entity.Employee;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -31,6 +30,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
+import com.google.inject.Inject;
 
 import java.util.List;
 
@@ -44,8 +44,6 @@ public class MainWindowViewImpl extends Composite implements MainWindowView {
     interface MainWindowImplUiBinder extends UiBinder<Widget, MainWindowViewImpl> {
     }
 
-    private static MainWindowImplUiBinder ourUiBinder = GWT.create(MainWindowImplUiBinder.class);
-
     @UiField(provided = true)
     CellTable<Employee> tableOfEmployees;
     @UiField
@@ -55,11 +53,10 @@ public class MainWindowViewImpl extends Composite implements MainWindowView {
     @UiField
     Button              removeButton;
 
-    private final Localization   localization;
-    private       ActionDelegate delegate;
+    private ActionDelegate delegate;
 
-    public MainWindowViewImpl(Localization localization) {
-        this.localization = localization;
+    @Inject
+    public MainWindowViewImpl(MainWindowImplUiBinder ourUiBinder, Localization localization) {
         this.tableOfEmployees = createTable(localization);
 
         initWidget(ourUiBinder.createAndBindUi(this));

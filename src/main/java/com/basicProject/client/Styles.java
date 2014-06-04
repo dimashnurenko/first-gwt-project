@@ -15,7 +15,6 @@
  */
 package com.basicProject.client;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.resources.client.ImageResource;
@@ -25,21 +24,20 @@ import com.google.gwt.resources.client.ImageResource;
  */
 public interface Styles extends ClientBundle {
 
-    public static final Styles INSTANCE = GWT.create(Styles.class);
-
     public interface ButtonStyleCssResource extends CssResource {
 
         String button();
+
         String cellTable();
+
         String buttonPanel();
 
     }
-
-
 
     @Source("styles.css")
     ButtonStyleCssResource style();
 
     @Source("image.jpg")
     ImageResource image();
+
 }

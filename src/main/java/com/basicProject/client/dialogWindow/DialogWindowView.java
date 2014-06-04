@@ -16,10 +16,12 @@
 package com.basicProject.client.dialogWindow;
 
 import com.basicProject.client.mvp.View;
+import com.google.inject.ImplementedBy;
 
 /**
  * @author Dmitry Shnurenko
  */
+@ImplementedBy(DialogWindowViewImpl.class)
 public interface DialogWindowView extends View<DialogWindowView.ActionDelegate> {
 
     public interface ActionDelegate {

@@ -15,12 +15,8 @@
  */
 package com.basicProject.client;
 
-import com.basicProject.client.dialogWindow.DialogWindowPresenter;
-import com.basicProject.client.dialogWindow.DialogWindowView;
-import com.basicProject.client.dialogWindow.DialogWindowViewImpl;
+import com.basicProject.client.inject.Injector;
 import com.basicProject.client.mainWindow.MainWindowPresenter;
-import com.basicProject.client.mainWindow.MainWindowView;
-import com.basicProject.client.mainWindow.MainWindowViewImpl;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
@@ -33,20 +29,11 @@ public class BasicProject implements EntryPoint {
 
     @Override
     public void onModuleLoad() {
-        Styles styles = GWT.create(Styles.class);
-        styles.style().ensureInjected();
-
-        Localization localization = GWT.create(Localization.class);
-
-
-        DialogWindowView dialogWindowView = new DialogWindowViewImpl();
-        DialogWindowPresenter dialogWindowPresenter = new DialogWindowPresenter(dialogWindowView);
-
-        MainWindowView mainWindow = new MainWindowViewImpl(localization);
-        MainWindowPresenter presenter = new MainWindowPresenter(mainWindow, dialogWindowPresenter);
-
         SimpleLayoutPanel panel = new SimpleLayoutPanel();
-        panel.add(mainWindow);
         RootLayoutPanel.get().add(panel);
+
+        Injector injector = GWT.create(Injector.class);
+        MainWindowPresenter presenter = injector.getMainWindowPresenter();
+        presenter.go(panel);
     }
 }

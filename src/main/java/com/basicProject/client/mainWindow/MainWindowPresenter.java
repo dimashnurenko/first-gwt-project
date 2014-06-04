@@ -15,15 +15,21 @@
  */
 package com.basicProject.client.mainWindow;
 
+import com.basicProject.client.Styles;
 import com.basicProject.client.dialogWindow.DialogWindowPresenter;
 import com.basicProject.client.entity.Employee;
 import com.basicProject.client.mvp.CallBack;
+import com.google.gwt.user.client.ui.HasOneWidget;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Dmitry Shnurenko
  */
+@Singleton
 public class MainWindowPresenter implements MainWindowView.ActionDelegate {
 
     private final List<Employee>        employees;
@@ -33,8 +39,10 @@ public class MainWindowPresenter implements MainWindowView.ActionDelegate {
     private final DialogWindowPresenter dialogWindowPresenter;
     private       Employee              selectedEmployee;
 
+    @Inject
+    public MainWindowPresenter(MainWindowView view, DialogWindowPresenter dialogWindowPresenter, Styles styles) {
+        styles.style().ensureInjected();
 
-    public MainWindowPresenter(MainWindowView view, DialogWindowPresenter dialogWindowPresenter) {
         this.view = view;
         this.view.setDelegate(this);
         this.dialogWindowPresenter = dialogWindowPresenter;
@@ -79,5 +87,9 @@ public class MainWindowPresenter implements MainWindowView.ActionDelegate {
     @Override
     public void onSelectedEmployee(Employee employee) {
         selectedEmployee = employee;
+    }
+
+    public void go(HasOneWidget widget) {
+        widget.setWidget(view);
     }
 }

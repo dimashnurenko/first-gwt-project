@@ -17,7 +17,6 @@
  */
 package com.basicProject.client.dialogWindow;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -26,15 +25,15 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.inject.Inject;
 
 /**
  * @author Dmitry Shnurenko
  */
 public class DialogWindowViewImpl extends DialogBox implements DialogWindowView {
 
-    interface DialogWindowViewImplUiBinder extends UiBinder<Widget, DialogWindowViewImpl> { }
-
-    private static DialogWindowViewImplUiBinder ourUiBinder = GWT.create(DialogWindowViewImplUiBinder.class);
+    interface DialogWindowViewImplUiBinder extends UiBinder<Widget, DialogWindowViewImpl> {
+    }
 
     @UiField
     TextBox firstName;
@@ -49,8 +48,8 @@ public class DialogWindowViewImpl extends DialogBox implements DialogWindowView 
 
     private ActionDelegate delegate;
 
-
-    public DialogWindowViewImpl() {
+    @Inject
+    public DialogWindowViewImpl(DialogWindowViewImplUiBinder ourUiBinder) {
         add(ourUiBinder.createAndBindUi(this));
     }
 

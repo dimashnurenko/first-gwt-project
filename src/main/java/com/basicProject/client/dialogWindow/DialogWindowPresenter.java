@@ -17,6 +17,7 @@ package com.basicProject.client.dialogWindow;
 
 import com.basicProject.client.entity.Employee;
 import com.basicProject.client.mvp.CallBack;
+import com.google.inject.Inject;
 
 /**
  * @author Dmitry Shnurenko
@@ -26,6 +27,7 @@ public class DialogWindowPresenter implements DialogWindowView.ActionDelegate {
     private final DialogWindowView view;
     private       CallBack         callBack;
 
+    @Inject
     public DialogWindowPresenter(DialogWindowView view) {
         this.view = view;
         this.view.setDelegate(this);
