@@ -1,0 +1,27 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:c='urn:import:com.google.gwt.user.cellview.client'>
+
+    <ui:with field="cssStyle" type="com.basicProject.client.Styles"/>
+    <ui:with field="locale" type="com.basicProject.client.Localization"/>
+
+    <g:DockLayoutPanel unit="PX" width="800px" height="600px">
+        <g:center>
+            <g:FlowPanel>
+                <g:Image resource="{cssStyle.image}"/>
+                <!--<g:ScrollPanel height="100%" width="100%">-->
+                    <c:CellTable addStyleNames='{cssStyle.style.cellTable}' ui:field='tableOfEmployees'/>
+                <!--</g:ScrollPanel>-->
+            </g:FlowPanel>
+        </g:center>
+
+        <g:south size="250">
+            <g:FlowPanel addStyleNames="{cssStyle.style.buttonPanel}">
+                <g:Button text="{locale.addButton}" ui:field="addButton" addStyleNames="{cssStyle.style.button}"/>
+                <g:Button text="{locale.editButton}" ui:field="editButton" addStyleNames="{cssStyle.style.button}"/>
+                <g:Button text="{locale.removeButton}" ui:field="removeButton" addStyleNames="{cssStyle.style.button}"/>
+            </g:FlowPanel>
+        </g:south>
+    </g:DockLayoutPanel>
+
+</ui:UiBinder>
