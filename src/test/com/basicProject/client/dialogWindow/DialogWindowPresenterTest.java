@@ -17,57 +17,108 @@ package com.basicProject.client.dialogWindow;
 
 import com.basicProject.client.entity.Employee;
 import com.basicProject.client.mvp.CallBack;
-import com.google.gwtmockito.GwtMockitoTestRunner;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.stubbing.Answer;
 
-import java.util.ArrayList;
-
-import static org.mockito.Mockito.mock;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.anyObject;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
  * @author Dmitry Shnurenko
  */
-
-@RunWith(GwtMockitoTestRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 public class DialogWindowPresenterTest {
 
-    private DialogWindowPresenter dialogWindowPresenter = mock(DialogWindowPresenter.class);
-    private DialogWindowView      dialogWindowView      = mock(DialogWindowView.class);
-    private CallBack              callBackForAdd        = mock(CallBack.class);
-    private CallBack              callBackForEdit       = mock(CallBack.class);
-    private ArrayList<Employee>   list                  = new ArrayList<>();
+    @Mock
+    private CallBack              callBack;
+    @Mock
+    private Employee              employee;
+    @Mock
+    private DialogWindowView      dialogWindowView;
+    @InjectMocks
+    private DialogWindowPresenter presenter;
 
-    @Before
-    public void setUpCallBack() {
+    @Test
+    public void testEmployeeWilldBeAddedInTable() throws Exception {
+
+        when(dialogWindowView.getFirstName()).thenReturn("1");
+        when(dialogWindowView.getMiddleName()).thenReturn("2");
+        when(dialogWindowView.getLastName()).thenReturn("3");
+
+        doAnswer(new Answer() {
+            @Override
+            public Object answer(InvocationOnMock invocation) throws Throwable {
+                Object[] arguments = invocation.getArguments();
+                Employee employee = (Employee)arguments[0];
+                assertEquals(dialogWindowView.getFirstName(),employee.getFirstName());
+                assertEquals(dialogWindowView.getMiddleName(),employee.getMiddleName());
+                assertEquals(dialogWindowView.getLastName(),employee.getLastName());
+                return null;
+            }
+        }).when(callBack).onChangeTableOfEmployee((Employee)anyObject());
+
+        presenter.showWindow(callBack);
+        reset(dialogWindowView);
+
+        presenter.onClickAddEmployee();
+
+        verify(callBack).onChangeTableOfEmployee((Employee)anyObject());
+        verify(dialogWindowView).hideWindow();
+    }
+
+    @Test
+    public void testWindowWillDisapear() throws Exception {
+
+        presenter.onClickCancel();
+
+        verify(dialogWindowView).hideWindow();
+
+    }
+
+    @Test
+    public void testWindowForAddWillBeDisplayed() {
+
+        presenter.showWindow(callBack);
+
+        verify(dialogWindowView).showWindow();
+
+    }
+
+    @Test
+    public void testEmployeeWillBeEddedInTableAfterEdit() {
+
         Employee empl = new Employee("1","2","3");
 
+        doAnswer(new Answer() {
+            @Override
+            public Object answer(InvocationOnMock invocation) throws Throwable {
+                Object[] argiments = invocation.getArguments();
+                Employee employee = (Employee)argiments[0];
+                assertEquals("1",employee.getFirstName());
+                assertEquals("2",employee.getMiddleName());
+                assertEquals("3",employee.getLastName());
+                return null;
+            }
+        }).when(callBack).onChangeTableOfEmployee(empl);
+
+        presenter.showWindowForEdit(callBack,empl);
+        presenter.onClickAddEmployee();
+
+
+
+        verify(callBack).onChangeTableOfEmployee((Employee)anyObject());
+        verify(dialogWindowView).showWindow();
+        verify(dialogWindowView).hideWindow();
+
     }
-
-
-    @Before
-    public void setUpDialogPresenter() {
-
-    }
-
-    @Test
-    public void onClickButtonOrder() {
-
-        dialogWindowPresenter.onClickAddEmployee();
-        dialogWindowPresenter.onClickCancel();
-
-        verify(dialogWindowPresenter).onClickAddEmployee();
-        verify(dialogWindowPresenter).onClickCancel();
-    }
-
-    @Test
-    public void clickAddButtonTest() {
-
-    }
-
-
 }

@@ -41,7 +41,7 @@ public class MainWindowPresenter implements MainWindowView.ActionDelegate {
 
     @Inject
     public MainWindowPresenter(MainWindowView view, DialogWindowPresenter dialogWindowPresenter, Styles styles) {
-        styles.style().ensureInjected();
+//        styles.style().ensureInjected();
 
         this.view = view;
         this.view.setDelegate(this);
