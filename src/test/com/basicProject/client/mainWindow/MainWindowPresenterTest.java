@@ -28,12 +28,15 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anyObject;
 import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 
 /**
@@ -63,13 +66,13 @@ public class MainWindowPresenterTest {
 
         presenter.onAddButtonClicked();
 
-        verify(dialogWindowPresenter).showWindow(addEmployeeCallBack);
+        verify(dialogWindowPresenter).showWindow((CallBack)anyObject());
     }
 
     @Test
     public void testOnEditButtonWasClicked() throws Exception{
 
-                    //TODO editEmployeeCallback problem
+
         final Employee empl = new Employee("1","2","3");
 
         doAnswer(new Answer() {
@@ -87,19 +90,17 @@ public class MainWindowPresenterTest {
         presenter.onSelectedEmployee(empl);
         presenter.onEditButtonClicked();
 
-        verify(dialogWindowPresenter).showWindowForEdit(editEmployeeCallBack,empl);
+        verify(dialogWindowPresenter).showWindowForEdit((CallBack)anyObject(),(Employee)anyObject());
+
     }
 
     @Test
     public void testOnRemoveButtonWasClicked() throws Exception{
 
-        Employee empl = new Employee("4","5","6");
-
-        presenter.onSelectedEmployee(empl);
-
         presenter.onRemoveButtonClicked();
 
-        verify(view).setEmployeesList(list);
+        //verify(list).remove((Employee)anyObject());
+        verify(view).setEmployeesList((List)anyObject());
     }
 
 }

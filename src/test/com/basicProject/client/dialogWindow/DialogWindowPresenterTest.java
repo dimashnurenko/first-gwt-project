@@ -20,6 +20,7 @@ import com.basicProject.client.mvp.CallBack;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
@@ -29,6 +30,7 @@ import org.mockito.stubbing.Answer;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anyObject;
 import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -114,11 +116,11 @@ public class DialogWindowPresenterTest {
         presenter.showWindowForEdit(callBack,empl);
         presenter.onClickAddEmployee();
 
+        InOrder oredr = inOrder(callBack,dialogWindowView);
 
-
-        verify(callBack).onChangeTableOfEmployee((Employee)anyObject());
-        verify(dialogWindowView).showWindow();
-        verify(dialogWindowView).hideWindow();
+        oredr.verify(dialogWindowView).showWindow();
+        oredr.verify(callBack).onChangeTableOfEmployee((Employee)anyObject());
+        oredr.verify(dialogWindowView).hideWindow();
 
     }
 }
