@@ -40,8 +40,7 @@ public class MainWindowPresenter implements MainWindowView.ActionDelegate {
     private       Employee              selectedEmployee;
 
     @Inject
-    public MainWindowPresenter(MainWindowView view, DialogWindowPresenter dialogWindowPresenter, Styles styles) {
-//        styles.style().ensureInjected();
+    public MainWindowPresenter(MainWindowView view, DialogWindowPresenter dialogWindowPresenter) {
 
         this.view = view;
         this.view.setDelegate(this);

@@ -97,7 +97,7 @@ public class MainWindowPresenterTest {
     }
 
     @Test
-    public void testAddEmployeeCallBackBehavior() {
+    public void testAddEmployeeCallBackInvocation() {
 
         doAnswer(new Answer() {
             @Override
@@ -116,7 +116,7 @@ public class MainWindowPresenterTest {
     }
 
     @Test
-    public void testEditEmployeeCallBackBehavior() {
+    public void testEditEmployeeCallBackInvocation() {
 
         doAnswer(new Answer() {
             @Override

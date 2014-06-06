@@ -33,7 +33,12 @@ public class BasicProject implements EntryPoint {
         RootLayoutPanel.get().add(panel);
 
         Injector injector = GWT.create(Injector.class);
+
+        Styles styles = injector.getStyles();
+        styles.style().ensureInjected();
+
         MainWindowPresenter presenter = injector.getMainWindowPresenter();
+
         presenter.go(panel);
     }
 }

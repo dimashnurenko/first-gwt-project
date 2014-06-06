@@ -15,9 +15,11 @@
  */
 package com.basicProject.client.inject;
 
+import com.basicProject.client.Styles;
 import com.basicProject.client.mainWindow.MainWindowView;
 import com.basicProject.client.mainWindow.MainWindowViewImpl;
 import com.google.gwt.inject.client.AbstractGinModule;
+import com.google.inject.Singleton;
 
 /**
  * @author Dmitry Shnurenko
@@ -27,6 +29,6 @@ public class GinModule extends AbstractGinModule {
     @Override
     protected void configure() {
         bind(MainWindowView.class).to(MainWindowViewImpl.class);
-//        bind(DialogWindowView.class).to(DialogWindowViewImpl.class);
+        bind(Styles.class).in(Singleton.class);
     }
 }

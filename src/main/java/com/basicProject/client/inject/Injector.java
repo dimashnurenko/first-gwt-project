@@ -15,6 +15,7 @@
  */
 package com.basicProject.client.inject;
 
+import com.basicProject.client.Styles;
 import com.basicProject.client.mainWindow.MainWindowPresenter;
 import com.google.gwt.inject.client.GinModules;
 import com.google.gwt.inject.client.Ginjector;
@@ -26,5 +27,6 @@ import com.google.gwt.inject.client.Ginjector;
 public interface Injector extends Ginjector {
 
     MainWindowPresenter getMainWindowPresenter();
+    Styles getStyles();
 
 }
