@@ -18,6 +18,7 @@
 package com.basicProject.client.mainWindow;
 
 import com.basicProject.client.Localization;
+import com.basicProject.client.MenuBarItem;
 import com.basicProject.client.entity.Employee;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -27,6 +28,8 @@ import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.MenuBar;
+import com.google.gwt.user.client.ui.MenuItem;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
@@ -46,6 +49,8 @@ public class MainWindowViewImpl extends Composite implements MainWindowView {
 
     @UiField(provided = true)
     CellTable<Employee> tableOfEmployees;
+    @UiField(provided = true)
+    MenuBar             menu;
     @UiField
     Button              addButton;
     @UiField
@@ -58,7 +63,7 @@ public class MainWindowViewImpl extends Composite implements MainWindowView {
     @Inject
     public MainWindowViewImpl(MainWindowImplUiBinder ourUiBinder, Localization localization) {
         this.tableOfEmployees = createTable(localization);
-
+        //this.menu = createMenuBar();
         initWidget(ourUiBinder.createAndBindUi(this));
     }
 
@@ -101,6 +106,12 @@ public class MainWindowViewImpl extends Composite implements MainWindowView {
         table.setSelectionModel(selectionModel);
 
         return table;
+    }
+
+    private MenuBar createMenuBar(/*MenuBarItem barItem*/) {
+        MenuBar menuBar = new MenuBar();
+        menuBar.setAutoOpen(true);
+        return menuBar;
     }
 
     @Override

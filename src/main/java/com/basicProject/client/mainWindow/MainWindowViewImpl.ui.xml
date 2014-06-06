@@ -3,9 +3,18 @@
              xmlns:c='urn:import:com.google.gwt.user.cellview.client'>
 
     <ui:with field="cssStyle" type="com.basicProject.client.Styles"/>
+    <ui:with field="menubar" type="com.basicProject.client.MenuBarItem"/>
     <ui:with field="locale" type="com.basicProject.client.Localization"/>
 
     <g:DockLayoutPanel unit="PX" width="800px" height="600px">
+        <g:north size="50">
+            <g:FlowPanel>
+                <g:MenuBar vertical="true" ui:field="menu">
+                    <g:MenuItem >
+                </g:MenuBar>
+            </g:FlowPanel>
+        </g:north>
+
         <g:center>
             <g:FlowPanel>
                 <g:Image resource="{cssStyle.image}"/>

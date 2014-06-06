@@ -16,24 +16,15 @@
 package com.basicProject.client;
 
 import com.google.gwt.i18n.client.Constants;
-import com.google.gwt.i18n.client.LocalizableResource.DefaultLocale;
 
 /**
  * @author Dmitry Shnurenko
  */
-public interface Localization extends Constants {
+public interface MenuBarItem extends Constants {
 
-    String firstName();
+    String[] menu();
 
-    String middleName();
+    String[] options();
 
-    String lastName();
-
-    String addButton();
-
-    String cancelButton();
-
-    String removeButton();
-
-    String editButton();
+    String about();
 }
