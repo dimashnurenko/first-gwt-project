@@ -18,7 +18,6 @@ package com.basicProject.client.mainWindow;
 import com.basicProject.client.dialogWindow.DialogWindowPresenter;
 import com.basicProject.client.entity.Employee;
 import com.basicProject.client.mvp.CallBack;
-import com.google.gwt.core.client.GWT;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,13 +27,12 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anyObject;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -46,23 +44,19 @@ import static org.mockito.Mockito.when;
 public class MainWindowPresenterTest {
 
     @Mock
-    private List<Employee>        list;
-    @Mock
     private MainWindowView        view;
-    @Mock
-    private CallBack              editEmployeeCallBack;
-    @Mock
-    private CallBack              addEmployeeCallBack;
     @Mock
     private DialogWindowPresenter dialogWindowPresenter;
     @Mock
     private Employee              employee;
+    @Mock
+    private List<Employee>        list;
 
     @InjectMocks
-    MainWindowPresenter presenter;
+    private MainWindowPresenter presenter;
 
     @Test
-    public void testOnAddButtonWasClicked() throws Exception{
+    public void testDialogWindowAppearAfterAddButtonClicked() throws Exception {
 
         presenter.onAddButtonClicked();
 
@@ -70,37 +64,74 @@ public class MainWindowPresenterTest {
     }
 
     @Test
-    public void testOnEditButtonWasClicked() throws Exception{
+    public void testDialogWindowAppearAfterEditButtonClicked() throws Exception {
 
 
-        final Employee empl = new Employee("1","2","3");
+        final Employee empl = new Employee("1", "2", "3");
 
         doAnswer(new Answer() {
             @Override
             public Object answer(InvocationOnMock invocation) throws Throwable {
                 Object[] arguments = invocation.getArguments();
                 Employee answerEmployee = (Employee)arguments[1];
-                assertEquals(answerEmployee.getFirstName(),empl.getFirstName());
-                assertEquals(answerEmployee.getMiddleName(),empl.getMiddleName());
-                assertEquals(answerEmployee.getLastName(),empl.getLastName());
+
+                assertEquals(answerEmployee.getFirstName(), empl.getFirstName());
+                assertEquals(answerEmployee.getMiddleName(), empl.getMiddleName());
+                assertEquals(answerEmployee.getLastName(), empl.getLastName());
                 return null;
             }
-        }).when(dialogWindowPresenter).showWindowForEdit(editEmployeeCallBack,empl);
+        }).when(dialogWindowPresenter).showWindowForEdit((CallBack)anyObject(), eq(empl));
 
         presenter.onSelectedEmployee(empl);
         presenter.onEditButtonClicked();
 
-        verify(dialogWindowPresenter).showWindowForEdit((CallBack)anyObject(),(Employee)anyObject());
+        verify(dialogWindowPresenter).showWindowForEdit((CallBack)anyObject(), (Employee)anyObject());
 
     }
 
     @Test
-    public void testOnRemoveButtonWasClicked() throws Exception{
+    public void testRemoveEmployeeFromTable() throws Exception {
 
         presenter.onRemoveButtonClicked();
-
-        //verify(list).remove((Employee)anyObject());
         verify(view).setEmployeesList((List)anyObject());
     }
+
+    @Test
+    public void testAddEmployeeCallBackBehavior() {
+
+        doAnswer(new Answer() {
+            @Override
+            public Object answer(InvocationOnMock invocation) throws Throwable {
+                Object[] args = invocation.getArguments();
+                CallBack addCallBack = (CallBack)args[0];
+                addCallBack.onChangeTableOfEmployee((Employee)anyObject());
+                return null;
+            }
+        }).when(dialogWindowPresenter).showWindow((CallBack)anyObject());
+
+        presenter.onAddButtonClicked();
+
+        verify(view).setEmployeesList((List)anyObject());
+
+    }
+
+    @Test
+    public void testEditEmployeeCallBackBehavior() {
+
+        doAnswer(new Answer() {
+            @Override
+            public Object answer(InvocationOnMock invocation) throws Throwable {
+                Object[] args = invocation.getArguments();
+                CallBack editCallBack = (CallBack) args[0];
+                editCallBack.onChangeTableOfEmployee((Employee)anyObject());
+                return null;
+            }
+        }).when(dialogWindowPresenter).showWindowForEdit((CallBack)anyObject(),(Employee)anyObject());
+
+        presenter.onEditButtonClicked();
+
+        verify(view).setEmployeesList((List)anyObject());
+    }
+
 
 }
