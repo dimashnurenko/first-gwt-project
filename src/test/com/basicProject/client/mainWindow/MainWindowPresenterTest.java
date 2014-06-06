@@ -34,7 +34,6 @@ import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 
 /**
@@ -97,41 +96,71 @@ public class MainWindowPresenterTest {
     }
 
     @Test
-    public void testAddEmployeeCallBackInvocation() {
+    public void testAddEmployeeCallBackInvocation() throws Exception {
+
+        final Employee testEmployee = new Employee("1", "2", "3");
 
         doAnswer(new Answer() {
             @Override
             public Object answer(InvocationOnMock invocation) throws Throwable {
                 Object[] args = invocation.getArguments();
                 CallBack addCallBack = (CallBack)args[0];
-                addCallBack.onChangeTableOfEmployee((Employee)anyObject());
+                addCallBack.onChangeTableOfEmployee(testEmployee);
                 return null;
             }
         }).when(dialogWindowPresenter).showWindow((CallBack)anyObject());
-
-        presenter.onAddButtonClicked();
-
-        verify(view).setEmployeesList((List)anyObject());
-
-    }
-
-    @Test
-    public void testEditEmployeeCallBackInvocation() {
 
         doAnswer(new Answer() {
             @Override
             public Object answer(InvocationOnMock invocation) throws Throwable {
                 Object[] args = invocation.getArguments();
-                CallBack editCallBack = (CallBack) args[0];
-                editCallBack.onChangeTableOfEmployee((Employee)anyObject());
+                List<Employee> list = (List)args[0];
+
+                assertEquals(list.size(), 1);
+                assertEquals(list.get(0), testEmployee);
                 return null;
             }
-        }).when(dialogWindowPresenter).showWindowForEdit((CallBack)anyObject(),(Employee)anyObject());
+        }).when(view).setEmployeesList((List)anyObject());
+
+        presenter.onAddButtonClicked();
+
+        verify(dialogWindowPresenter).showWindow((CallBack)anyObject());
+        verify(view).setEmployeesList((List)anyObject());
+
+    }
+
+    @Test
+    public void testEditEmployeeCallBackInvocation() throws Exception {
+
+        final Employee editEmployee = new Employee("a", "b", "c");
+
+        doAnswer(new Answer() {
+            @Override
+            public Object answer(InvocationOnMock invocation) throws Throwable {
+                Object[] args = invocation.getArguments();
+
+                CallBack editCallBack = (CallBack)args[0];
+                editCallBack.onChangeTableOfEmployee(editEmployee);
+                return null;
+            }
+        }).when(dialogWindowPresenter).showWindowForEdit((CallBack)anyObject(), (Employee)anyObject());
+
+        doAnswer(new Answer() {
+            @Override
+            public Object answer(InvocationOnMock invocation) throws Throwable {
+                Object[] args = invocation.getArguments();
+                List<Employee> list = (List)args[0];
+
+                assertEquals(list.size(), 1);
+                assertEquals(list.get(0), editEmployee);
+                return null;
+            }
+        }).when(view).setEmployeesList((List)anyObject());
 
         presenter.onEditButtonClicked();
 
+        verify(dialogWindowPresenter).showWindowForEdit((CallBack)anyObject(), (Employee)anyObject());
         verify(view).setEmployeesList((List)anyObject());
+
     }
-
-
 }

@@ -34,8 +34,7 @@ public class BasicProject implements EntryPoint {
 
         Injector injector = GWT.create(Injector.class);
 
-        Styles styles = injector.getStyles();
-        styles.style().ensureInjected();
+        injector.getStyles().style().ensureInjected();
 
         MainWindowPresenter presenter = injector.getMainWindowPresenter();
 

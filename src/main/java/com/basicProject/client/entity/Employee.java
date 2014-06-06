@@ -20,7 +20,6 @@ package com.basicProject.client.entity;
  */
 public class Employee {
 
-    private int id;
     private String firstName;
     private String middleName;
     private String lastName;
@@ -38,31 +37,33 @@ public class Employee {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
     public String getMiddleName() {
         return middleName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Employee employee1 = (Employee)o;
+
+        if (!firstName.equals(employee1.firstName)) return false;
+        if (!lastName.equals(employee1.lastName)) return false;
+        if (!middleName.equals(employee1.middleName)) return false;
+
+        return true;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    @Override
+    public int hashCode() {
+        int result = firstName.hashCode();
+        result = 31 * result + middleName.hashCode();
+        result = 31 * result + lastName.hashCode();
+        return result;
     }
 }
