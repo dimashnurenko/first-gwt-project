@@ -15,7 +15,7 @@
  */
 package com.basicProject.client.mainWindow;
 
-import com.basicProject.client.Styles;
+import com.basicProject.client.Localization;
 import com.basicProject.client.dialogWindow.DialogWindowPresenter;
 import com.basicProject.client.entity.Employee;
 import com.basicProject.client.mvp.CallBack;
@@ -37,31 +37,43 @@ public class MainWindowPresenter implements MainWindowView.ActionDelegate {
     private final CallBack              editEmployeeCallBack;
     private final CallBack              addEmployeeCallBack;
     private final DialogWindowPresenter dialogWindowPresenter;
+    private final Localization          localization;
     private       Employee              selectedEmployee;
 
     @Inject
-    public MainWindowPresenter(MainWindowView view, DialogWindowPresenter dialogWindowPresenter) {
+    public MainWindowPresenter(final MainWindowView view, DialogWindowPresenter dialogWindowPresenter, final Localization localization) {
 
         this.view = view;
         this.view.setDelegate(this);
+        this.localization = localization;
         this.dialogWindowPresenter = dialogWindowPresenter;
         this.employees = new ArrayList<>();
 
         addEmployeeCallBack = new CallBack() {
             @Override
             public void onChangeTableOfEmployee(Employee newEmpl) {
-                employees.add(newEmpl);
-                MainWindowPresenter.this.view.setEmployeesList(employees);
+                if (employees.contains(newEmpl)) {
+                    view.setExceptionMessege(localization.error());
+                } else {
+                    view.setExceptionMessege("");
+                    employees.add(newEmpl);
+                    MainWindowPresenter.this.view.setEmployeesList(employees);
+                }
             }
         };
 
         editEmployeeCallBack = new CallBack() {
             @Override
             public void onChangeTableOfEmployee(Employee newEmpl) {
-                employees.remove(selectedEmployee);
-                employees.add(newEmpl);
+                if (employees.contains(newEmpl)) {
+                    view.setExceptionMessege(localization.error());
+                } else {
+                    view.setExceptionMessege("");
+                    employees.remove(selectedEmployee);
+                    employees.add(newEmpl);
 
-                MainWindowPresenter.this.view.setEmployeesList(employees);
+                    MainWindowPresenter.this.view.setEmployeesList(employees);
+                }
             }
         };
     }
