@@ -16,6 +16,7 @@
 package com.basicProject.client.mainWindow;
 
 import com.basicProject.client.entity.Employee;
+import com.basicProject.client.entity.Note;
 import com.basicProject.client.mvp.View;
 import com.google.gwt.user.client.ui.HasOneWidget;
 
@@ -41,5 +42,9 @@ public interface MainWindowView extends View<MainWindowView.ActionDelegate> {
     }
 
     void setEmployeesList(List<Employee> list);
+
+    void setExceptionMessage(String message);
+
+    void setNotesList(List<Note> list);
 
 }

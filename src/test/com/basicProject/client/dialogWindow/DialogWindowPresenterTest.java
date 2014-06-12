@@ -16,6 +16,7 @@
 package com.basicProject.client.dialogWindow;
 
 import com.basicProject.client.entity.Employee;
+import com.basicProject.client.mainWindow.MainWindowView;
 import com.basicProject.client.mvp.CallBack;
 
 import org.junit.Test;
@@ -27,11 +28,16 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.mockito.Matchers.anyList;
 import static org.mockito.Matchers.anyObject;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.inOrder;
-import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -44,14 +50,12 @@ public class DialogWindowPresenterTest {
     @Mock
     private CallBack              callBack;
     @Mock
-    private Employee              employee;
-    @Mock
     private DialogWindowView      dialogWindowView;
     @InjectMocks
     private DialogWindowPresenter presenter;
 
     @Test
-    public void testEmployeeShouldBeAddedInTable() throws Exception {
+    public void employeeShouldBeAddedInTable() throws Exception {
 
         when(dialogWindowView.getFirstName()).thenReturn("1");
         when(dialogWindowView.getMiddleName()).thenReturn("2");
@@ -60,67 +64,134 @@ public class DialogWindowPresenterTest {
         doAnswer(new Answer() {
             @Override
             public Object answer(InvocationOnMock invocation) throws Throwable {
-                Object[] arguments = invocation.getArguments();
-                Employee employee = (Employee)arguments[0];
-                assertEquals(dialogWindowView.getFirstName(),employee.getFirstName());
-                assertEquals(dialogWindowView.getMiddleName(),employee.getMiddleName());
-                assertEquals(dialogWindowView.getLastName(),employee.getLastName());
+                Object[] args = invocation.getArguments();
+                Employee testEmployee = (Employee)args[0];
+
+                assertEquals(testEmployee.getFirstName(), "1");
+                assertEquals(testEmployee.getMiddleName(), "2");
+                assertEquals(testEmployee.getLastName(), "3");
+
                 return null;
             }
         }).when(callBack).onChangeTableOfEmployee((Employee)anyObject());
 
         presenter.showWindow(callBack);
-        reset(dialogWindowView);
-
         presenter.onClickAddEmployee();
 
+        verify(dialogWindowView).getFirstName();
+        verify(dialogWindowView).getMiddleName();
+        verify(dialogWindowView).getLastName();
+
         verify(callBack).onChangeTableOfEmployee((Employee)anyObject());
+
         verify(dialogWindowView).hideWindow();
     }
 
     @Test
-    public void testDialogWindowShouldDisapear() throws Exception {
+    public void dialogWindowShouldBeDisappeared() throws Exception {
 
         presenter.onClickCancel();
 
         verify(dialogWindowView).hideWindow();
-
     }
 
     @Test
-    public void testWindowForAddEmployeeWillBeDisplayed() {
+    public void dialogWindowForAddEmployeeShouldBeAppeared() throws Exception{
+
+        doAnswer(new Answer() {
+            @Override
+            public Object answer(InvocationOnMock invocation) throws Throwable {
+                Object[] args = invocation.getArguments();
+                String firstName = (String)args[0];
+
+                assertEquals(firstName, "");
+
+                return null;
+            }
+        }).when(dialogWindowView).setFirstName(anyString());
+
+        doAnswer(new Answer() {
+            @Override
+            public Object answer(InvocationOnMock invocation) throws Throwable {
+                Object[] args = invocation.getArguments();
+                String middleName = (String)args[0];
+
+                assertEquals(middleName, "");
+
+                return null;
+            }
+        }).when(dialogWindowView).setMiddleName(anyString());
+
+        doAnswer(new Answer() {
+            @Override
+            public Object answer(InvocationOnMock invocation) throws Throwable {
+                Object[] args = invocation.getArguments();
+                String lastName = (String)args[0];
+
+                assertEquals(lastName, "");
+
+                return null;
+            }
+        }).when(dialogWindowView).setLastName(anyString());
 
         presenter.showWindow(callBack);
 
         verify(dialogWindowView).showWindow();
 
+        verify(dialogWindowView).setFirstName(anyString());
+        verify(dialogWindowView).setMiddleName(anyString());
+        verify(dialogWindowView).setLastName(anyString());
+
     }
 
     @Test
-    public void testEmployeeShouldBeAddedInTableAfterEdit() {
+    public void dialogWindowForEditEmployeeShouldBeAppeared() throws Exception{
 
-        Employee empl = new Employee("1","2","3");
+        Employee testEmployee = new Employee("a","b","c");
 
         doAnswer(new Answer() {
             @Override
             public Object answer(InvocationOnMock invocation) throws Throwable {
-                Object[] arguments = invocation.getArguments();
-                Employee employee = (Employee)arguments[0];
-                assertEquals("1",employee.getFirstName());
-                assertEquals("2",employee.getMiddleName());
-                assertEquals("3",employee.getLastName());
+                Object[] args = invocation.getArguments();
+                String firstName = (String)args[0];
+
+                assertEquals(firstName,"a");
+
                 return null;
             }
-        }).when(callBack).onChangeTableOfEmployee(empl);
+        }).when(dialogWindowView).setFirstName(anyString());
 
-        presenter.showWindowForEdit(callBack,empl);
-        presenter.onClickAddEmployee();
+        doAnswer(new Answer() {
+            @Override
+            public Object answer(InvocationOnMock invocation) throws Throwable {
+                Object[] args = invocation.getArguments();
+                String middleName = (String)args[0];
 
-        InOrder oredr = inOrder(callBack,dialogWindowView);
+                assertEquals(middleName,"b");
 
-        oredr.verify(dialogWindowView).showWindow();
-        oredr.verify(callBack).onChangeTableOfEmployee((Employee)anyObject());
-        oredr.verify(dialogWindowView).hideWindow();
+                return null;
+            }
+        }).when(dialogWindowView).setMiddleName(anyString());
+
+        doAnswer(new Answer() {
+            @Override
+            public Object answer(InvocationOnMock invocation) throws Throwable {
+                Object[] args = invocation.getArguments();
+                String lastName = (String)args[0];
+
+                assertEquals(lastName,"c");
+
+                return null;
+            }
+        }).when(dialogWindowView).setLastName(anyString());
+
+        presenter.showWindowForEdit((CallBack)anyObject(),testEmployee);
+
+        verify(dialogWindowView).setFirstName(anyString());
+        verify(dialogWindowView).setMiddleName(anyString());
+        verify(dialogWindowView).setLastName(anyString());
+
+        verify(dialogWindowView).showWindow();
 
     }
 }

@@ -18,18 +18,21 @@
 package com.basicProject.client.mainWindow;
 
 import com.basicProject.client.Localization;
-import com.basicProject.client.MenuBarItem;
 import com.basicProject.client.entity.Employee;
+import com.basicProject.client.entity.Note;
+import com.google.gwt.cell.client.ButtonCell;
+import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.MenuBar;
-import com.google.gwt.user.client.ui.MenuItem;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
@@ -49,21 +52,22 @@ public class MainWindowViewImpl extends Composite implements MainWindowView {
 
     @UiField(provided = true)
     CellTable<Employee> tableOfEmployees;
-    @UiField(provided = true)
-    MenuBar             menu;
     @UiField
     Button              addButton;
     @UiField
     Button              editButton;
     @UiField
     Button              removeButton;
+    @UiField
+    TextBox             textBox;
+
+    private ButtonCell addNoteButton;
 
     private ActionDelegate delegate;
 
     @Inject
     public MainWindowViewImpl(MainWindowImplUiBinder ourUiBinder, Localization localization) {
         this.tableOfEmployees = createTable(localization);
-        //this.menu = createMenuBar();
         initWidget(ourUiBinder.createAndBindUi(this));
     }
 
@@ -91,9 +95,28 @@ public class MainWindowViewImpl extends Composite implements MainWindowView {
             }
         };
 
+        addNoteButton = new ButtonCell();
+
+        Column<Employee, String> addNote = new Column<Employee, String>(addNoteButton) {
+            @Override
+            public String getValue(Employee object) {
+                return "Add note";
+            }
+        };
+
+        addNote.setFieldUpdater(new FieldUpdater<Employee, String>() {
+            @Override
+            public void update(int index, Employee object, String value) {
+
+            }
+        });
+
+
         table.addColumn(firstName, local.firstName());
         table.addColumn(middleName, local.middleName());
         table.addColumn(lastName, local.lastName());
+        table.addColumn(addNote, local.listOfNotes());
+
 
         final SingleSelectionModel<Employee> selectionModel = new SingleSelectionModel<>();
         selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
@@ -108,11 +131,29 @@ public class MainWindowViewImpl extends Composite implements MainWindowView {
         return table;
     }
 
-    private MenuBar createMenuBar(/*MenuBarItem barItem*/) {
-        MenuBar menuBar = new MenuBar();
-        menuBar.setAutoOpen(true);
-        return menuBar;
-    }
+    /*private CellTable<Note> createNoteTable(Localization local){
+
+        CellTable tableOfNote = new CellTable();
+
+        TextColumn<Note> title = new TextColumn<Note>() {
+            @Override
+            public String getValue(Note object) {
+                return object.getTitle();
+            }
+        };
+
+        TextColumn<Note> text = new TextColumn<Note>() {
+            @Override
+            public String getValue(Note object) {
+                return object.getText();
+            }
+        };
+
+        tableOfNote.addColumn(title,local.titleNote());
+        tableOfNote.addColumn(text,local.textNote());
+
+        return tableOfNote;
+    }*/
 
     @Override
     public void setDelegate(ActionDelegate delegate) {
@@ -137,5 +178,15 @@ public class MainWindowViewImpl extends Composite implements MainWindowView {
     @Override
     public void setEmployeesList(List<Employee> employees) {
         tableOfEmployees.setRowData(employees);
+    }
+
+    @Override
+    public void setNotesList(List<Note> list) {
+
+    }
+
+    @Override
+    public void setExceptionMessage(String message) {
+        textBox.setText(message);
     }
 }

@@ -15,6 +15,9 @@
  */
 package com.basicProject.client.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Dmitry Shnurenko
  */
@@ -24,13 +27,33 @@ public class Employee {
     private String middleName;
     private String lastName;
 
+    private List<Note> listOfNotes;
+
     public Employee() {
+        listOfNotes = new ArrayList<>();
     }
 
     public Employee(String firstName, String middleName, String lastName) {
+        this.listOfNotes = new ArrayList<>();
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
+    }
+
+    public void addNote(Note note){
+        listOfNotes.add(note);
+    }
+
+    public Note getNote(Note note){
+        return listOfNotes.get(listOfNotes.indexOf(note));
+    }
+
+    public void removeNote(Note note){
+        listOfNotes.remove(note);
+    }
+
+    public List<Note> getListOfNotes(){
+        return listOfNotes;
     }
 
     public String getFirstName() {

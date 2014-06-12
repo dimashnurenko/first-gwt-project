@@ -19,6 +19,7 @@ import com.basicProject.client.Localization;
 import com.basicProject.client.dialogWindow.DialogWindowPresenter;
 import com.basicProject.client.entity.Employee;
 import com.basicProject.client.mvp.CallBack;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasOneWidget;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -53,9 +54,10 @@ public class MainWindowPresenter implements MainWindowView.ActionDelegate {
             @Override
             public void onChangeTableOfEmployee(Employee newEmpl) {
                 if (employees.contains(newEmpl)) {
-                    view.setExceptionMessege(localization.error());
+                    view.setExceptionMessage(localization.error());
+                    //Window.alert(localization.error());
                 } else {
-                    view.setExceptionMessege("");
+                    view.setExceptionMessage("");
                     employees.add(newEmpl);
                     MainWindowPresenter.this.view.setEmployeesList(employees);
                 }
@@ -66,9 +68,10 @@ public class MainWindowPresenter implements MainWindowView.ActionDelegate {
             @Override
             public void onChangeTableOfEmployee(Employee newEmpl) {
                 if (employees.contains(newEmpl)) {
-                    view.setExceptionMessege(localization.error());
+                    view.setExceptionMessage(localization.error());
+                    //Window.alert(localization.error());
                 } else {
-                    view.setExceptionMessege("");
+                    view.setExceptionMessage("");
                     employees.remove(selectedEmployee);
                     employees.add(newEmpl);
 

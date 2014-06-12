@@ -32,6 +32,8 @@ public interface Styles extends ClientBundle {
 
         String buttonPanel();
 
+        String textBox();
+
     }
 
     @Source("styles.css")

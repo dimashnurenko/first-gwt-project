@@ -18,6 +18,8 @@ package com.basicProject.client;
 import com.google.gwt.i18n.client.Constants;
 import com.google.gwt.i18n.client.LocalizableResource.DefaultLocale;
 
+import java.util.List;
+
 /**
  * @author Dmitry Shnurenko
  */
@@ -36,4 +38,12 @@ public interface Localization extends Constants {
     String removeButton();
 
     String editButton();
+
+    String error();
+
+    String textNote();
+
+    String titleNote();
+
+    String listOfNotes();
 }

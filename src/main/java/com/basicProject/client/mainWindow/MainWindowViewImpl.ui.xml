@@ -5,12 +5,10 @@
     <ui:with field="cssStyle" type="com.basicProject.client.Styles"/>
     <ui:with field="locale" type="com.basicProject.client.Localization"/>
 
-    <g:DockLayoutPanel unit="PX" width="800px" height="600px">
-        <g:north size="50">
+    <g:DockLayoutPanel unit="PX" width="600px" height="600px">
+        <g:north size="20">
             <g:FlowPanel>
-                <g:MenuBar vertical="true" ui:field="menu">
-                    <g:MenuItem />
-                </g:MenuBar>
+                <g:TextBox ui:field="textBox" readOnly="true" addStyleNames="{cssStyle.style.textBox}"/>
             </g:FlowPanel>
         </g:north>
 

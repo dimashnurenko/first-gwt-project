@@ -13,15 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.basicProject.client.mvp;
+package com.basicProject.client.patchers;
 
-import com.basicProject.client.entity.Employee;
+import com.google.gwt.user.client.Window;
+import com.googlecode.gwt.test.patchers.PatchClass;
+import com.googlecode.gwt.test.patchers.PatchMethod;
 
 /**
  * @author Dmitry Shnurenko
  */
-public interface CallBack {
+@PatchClass(Window.class)
+public class WindowAlertPatcher {
 
-   void onChangeTableOfEmployee(Employee empl);
+    @PatchMethod(override = true)
+    public static void alert(String message){
 
+    }
 }

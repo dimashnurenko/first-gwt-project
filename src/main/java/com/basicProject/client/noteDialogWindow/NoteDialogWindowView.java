@@ -13,15 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.basicProject.client.mvp;
-
-import com.basicProject.client.entity.Employee;
+package com.basicProject.client.noteDialogWindow;
 
 /**
  * @author Dmitry Shnurenko
  */
-public interface CallBack {
-
-   void onChangeTableOfEmployee(Employee empl);
-
+public interface NoteDialogWindowView {
 }
