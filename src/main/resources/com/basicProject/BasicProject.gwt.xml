@@ -17,7 +17,7 @@
   <extend-property name="locale" values="ru"/>
   <extend-property name="locale" values="en"/>
 
-  <set-property name="locale" value="ru"/>
+  <set-property name="locale" value="en"/>
 
     <!-- Inherit the default GWT style sheet.                       -->
   <inherits name='com.google.gwt.user.theme.clean.Clean'/>

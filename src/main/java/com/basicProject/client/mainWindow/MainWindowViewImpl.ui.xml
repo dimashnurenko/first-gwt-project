@@ -26,6 +26,7 @@
                 <g:Button text="{locale.addButton}" ui:field="addButton" addStyleNames="{cssStyle.style.button}"/>
                 <g:Button text="{locale.editButton}" ui:field="editButton" addStyleNames="{cssStyle.style.button}"/>
                 <g:Button text="{locale.removeButton}" ui:field="removeButton" addStyleNames="{cssStyle.style.button}"/>
+                <g:Button text="{locale.showNotes}" ui:field="showNotes" addStyleNames="{cssStyle.style.button}"/>
             </g:FlowPanel>
         </g:south>
     </g:DockLayoutPanel>

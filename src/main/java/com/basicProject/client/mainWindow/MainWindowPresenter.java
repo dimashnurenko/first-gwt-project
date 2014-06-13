@@ -18,8 +18,12 @@ package com.basicProject.client.mainWindow;
 import com.basicProject.client.Localization;
 import com.basicProject.client.dialogWindow.DialogWindowPresenter;
 import com.basicProject.client.entity.Employee;
+import com.basicProject.client.entity.Note;
 import com.basicProject.client.mvp.CallBack;
-import com.google.gwt.user.client.Window;
+import com.basicProject.client.mvp.CallBackForNote;
+import com.basicProject.client.noteDialogWindow.NoteDialogWindowPresenter;
+import com.basicProject.client.showNotesWindow.ShowNotesWindowPresenter;
+import com.basicProject.client.showNotesWindow.ShowNotesWindowView;
 import com.google.gwt.user.client.ui.HasOneWidget;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -33,22 +37,37 @@ import java.util.List;
 @Singleton
 public class MainWindowPresenter implements MainWindowView.ActionDelegate {
 
-    private final List<Employee>        employees;
-    private final MainWindowView        view;
-    private final CallBack              editEmployeeCallBack;
-    private final CallBack              addEmployeeCallBack;
-    private final DialogWindowPresenter dialogWindowPresenter;
-    private final Localization          localization;
-    private       Employee              selectedEmployee;
+    private final List<Employee>            employees;
+    private final List<Note>                notes;
+    private final MainWindowView            view;
+    private final ShowNotesWindowView       showNotesWindowView;
+    private final CallBack                  editEmployeeCallBack;
+    private final CallBack                  addEmployeeCallBack;
+    private final CallBackForNote           callBackForNote;
+    private final DialogWindowPresenter     dialogWindowPresenter;
+    private final ShowNotesWindowPresenter  showNotesWindowPresenter;
+    private final NoteDialogWindowPresenter noteDialogWindowPresenter;
+    private final Localization              localization;
+
+    private Employee selectedEmployee;
 
     @Inject
-    public MainWindowPresenter(final MainWindowView view, DialogWindowPresenter dialogWindowPresenter, final Localization localization) {
+    public MainWindowPresenter(final MainWindowView view,
+                               ShowNotesWindowView showNotesWindowView,
+                               DialogWindowPresenter dialogWindowPresenter,
+                               NoteDialogWindowPresenter noteDialogWindowPresenter,
+                               final ShowNotesWindowPresenter showNotesWindowPresenter,
+                               final Localization localization) {
 
         this.view = view;
+        this.showNotesWindowView = showNotesWindowView;
         this.view.setDelegate(this);
         this.localization = localization;
         this.dialogWindowPresenter = dialogWindowPresenter;
+        this.noteDialogWindowPresenter = noteDialogWindowPresenter;
+        this.showNotesWindowPresenter = showNotesWindowPresenter;
         this.employees = new ArrayList<>();
+        this.notes = new ArrayList<>();
 
         addEmployeeCallBack = new CallBack() {
             @Override
@@ -79,8 +98,19 @@ public class MainWindowPresenter implements MainWindowView.ActionDelegate {
                 }
             }
         };
+
+        callBackForNote = new CallBackForNote() {
+            @Override
+            public void onChangeTableOfNotes(Note note) {
+                selectedEmployee.getListOfNotes().add(note);
+            }
+        };
     }
 
+    @Override
+    public void onAddNoteButtonClicked() {
+        noteDialogWindowPresenter.showWindow(callBackForNote);
+    }
 
     @Override
     public void onAddButtonClicked() {
@@ -90,6 +120,11 @@ public class MainWindowPresenter implements MainWindowView.ActionDelegate {
     @Override
     public void onEditButtonClicked() {
         dialogWindowPresenter.showWindowForEdit(editEmployeeCallBack, selectedEmployee);
+    }
+
+    @Override
+    public void onShowNotesButtonClicked() {
+        showNotesWindowView.showWindow(selectedEmployee);
     }
 
     @Override

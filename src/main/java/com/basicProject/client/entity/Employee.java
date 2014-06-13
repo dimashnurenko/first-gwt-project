@@ -40,16 +40,8 @@ public class Employee {
         this.lastName = lastName;
     }
 
-    public void addNote(Note note){
-        listOfNotes.add(note);
-    }
-
-    public Note getNote(Note note){
-        return listOfNotes.get(listOfNotes.indexOf(note));
-    }
-
-    public void removeNote(Note note){
-        listOfNotes.remove(note);
+    public void setListOfNotes(List<Note> list){
+        this.listOfNotes = list;
     }
 
     public List<Note> getListOfNotes(){

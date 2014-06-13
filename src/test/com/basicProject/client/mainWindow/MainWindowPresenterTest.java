@@ -18,14 +18,17 @@ package com.basicProject.client.mainWindow;
 import com.basicProject.client.Localization;
 import com.basicProject.client.dialogWindow.DialogWindowPresenter;
 import com.basicProject.client.entity.Employee;
+import com.basicProject.client.entity.Note;
 import com.basicProject.client.mvp.CallBack;
-import com.google.gwt.user.client.Window;
+import com.basicProject.client.mvp.CallBackForNote;
+import com.basicProject.client.noteDialogWindow.NoteDialogWindowPresenter;
+import com.basicProject.client.showNotesWindow.ShowNotesWindowView;
 import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 import com.google.gwtmockito.GwtMockitoTestRunner;
 import com.googlecode.gwt.test.GwtModule;
-import com.googlecode.gwt.test.GwtTestWithMockito;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -41,7 +44,6 @@ import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.reset;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -50,19 +52,23 @@ import static org.mockito.Mockito.when;
  * @author Dmitry Shnurenko
  */
 @GwtModule("com.basicProject.BasicProject")
-//@RunWith(GwtMockitoTestRunner.class)
-public class MainWindowPresenterTest extends GwtTestWithMockito {
+@RunWith(GwtMockitoTestRunner.class)
+public class MainWindowPresenterTest /*extends GwtTestWithMockito*/ {
 
     @Mock
-    private MainWindowView        view;
+    private MainWindowView            view;
     @Mock
-    private DialogWindowPresenter dialogWindowPresenter;
+    private DialogWindowPresenter     dialogWindowPresenter;
     @Mock
-    private Localization          localization;
+    private ShowNotesWindowView       showNotesWindowView;
     @Mock
-    private SimpleLayoutPanel     widget;
+    private NoteDialogWindowPresenter noteDialogWindowPresenter;
+    @Mock
+    private Localization              localization;
+    @Mock
+    private SimpleLayoutPanel         widget;
     @InjectMocks
-    private MainWindowPresenter   presenter;
+    private MainWindowPresenter       presenter;
 
     private Employee testEmployee;
 
@@ -73,7 +79,6 @@ public class MainWindowPresenterTest extends GwtTestWithMockito {
 
     @Test
     public void dialogWindowShouldBeAppearAfterAddButtonClicked() throws Exception {
-
         presenter.onAddButtonClicked();
 
         verify(dialogWindowPresenter).showWindow((CallBack)anyObject());
@@ -81,7 +86,6 @@ public class MainWindowPresenterTest extends GwtTestWithMockito {
 
     @Test
     public void dialogWindowShouldBeAppearAfterEditButtonClicked() throws Exception {
-
         doAnswer(new Answer() {
             @Override
             public Object answer(InvocationOnMock invocation) throws Throwable {
@@ -102,7 +106,6 @@ public class MainWindowPresenterTest extends GwtTestWithMockito {
 
     @Test
     public void employeeShouldBeRemovedFromTable() throws Exception {
-
         doAnswer(new Answer() {
             @Override
             public Object answer(InvocationOnMock invocation) throws Throwable {
@@ -152,7 +155,6 @@ public class MainWindowPresenterTest extends GwtTestWithMockito {
 
     @Test
     public void employeeShouldBeAddedInTableUsingAddCallBack() throws Exception {
-
         doAnswer(new Answer() {
             @Override
             public Object answer(InvocationOnMock invocation) throws Throwable {
@@ -185,7 +187,6 @@ public class MainWindowPresenterTest extends GwtTestWithMockito {
 
     @Test
     public void employeeShouldBeChangedInTableUsingEditCallBack() throws Exception {
-
         final Employee currentEmployee = new Employee("a", "a", "a");
 
         doAnswer(new Answer() {
@@ -234,7 +235,6 @@ public class MainWindowPresenterTest extends GwtTestWithMockito {
 
     @Test
     public void errorMessageShouldNotBeAppearUsingAddCallBack() throws Exception {
-
         doAnswer(new Answer() {
             @Override
             public Object answer(InvocationOnMock invocation) throws Throwable {
@@ -266,7 +266,6 @@ public class MainWindowPresenterTest extends GwtTestWithMockito {
 
     @Test
     public void errorMessageShouldBeAppearUsingAddCallBack() throws Exception {
-
         when(localization.error()).thenReturn("error");
 
         doAnswer(new Answer() {
@@ -314,7 +313,6 @@ public class MainWindowPresenterTest extends GwtTestWithMockito {
 
     @Test
     public void errorMessageShouldNotBeAppearUsingEditCallBack() throws Exception {
-
         doAnswer(new Answer() {
             @Override
             public Object answer(InvocationOnMock invocation) throws Throwable {
@@ -346,7 +344,6 @@ public class MainWindowPresenterTest extends GwtTestWithMockito {
 
     @Test
     public void errorMessageShouldBeAppearUsingEditCallBack() throws Exception {
-
         when(localization.error()).thenReturn("error");
 
         doAnswer(new Answer() {
@@ -395,7 +392,6 @@ public class MainWindowPresenterTest extends GwtTestWithMockito {
 
     @Test
     public void mainWindowShouldBeAddedOnWidget() throws Exception {
-
         presenter.go(widget);
 
         verify(widget).setWidget(view);
@@ -403,6 +399,59 @@ public class MainWindowPresenterTest extends GwtTestWithMockito {
     }
 
     @Test
+    public void noteShouldBeAddedForCurrentEmployeeUsingAddNoteCallBack() throws Exception {
+        final Employee testEmployeeOne = new Employee();
+        final Note testNoteOne = new Note("1", "2");
+
+        final Employee testEmployeeTwo = new Employee();
+        final Note testNoteTwo = new Note("a", "b");
+
+        doAnswer(new Answer() {
+            @Override
+            public Object answer(InvocationOnMock invocation) throws Throwable {
+                Object[] args = invocation.getArguments();
+                CallBackForNote testCallBack = (CallBackForNote)args[0];
+                testCallBack.onChangeTableOfNotes(testNoteOne);
+
+                return null;
+            }
+        }).when(noteDialogWindowPresenter).showWindow((CallBackForNote)anyObject());
+
+        assertEquals(0,testEmployeeOne.getListOfNotes().size());
+
+        presenter.onSelectedEmployee(testEmployeeOne);
+        presenter.onAddNoteButtonClicked();
+        reset(noteDialogWindowPresenter);
+        List<Note> testListOne = testEmployeeOne.getListOfNotes();
+
+        assertEquals(1, testListOne.size());
+        assertEquals(testNoteOne, testListOne.get(0));
+
+        doAnswer(new Answer() {
+            @Override
+            public Object answer(InvocationOnMock invocation) throws Throwable {
+                Object[] args = invocation.getArguments();
+                CallBackForNote testCallBack = (CallBackForNote)args[0];
+                testCallBack.onChangeTableOfNotes(testNoteTwo);
+
+                return null;
+            }
+        }).when(noteDialogWindowPresenter).showWindow((CallBackForNote)anyObject());
+
+        assertEquals(0,testEmployeeTwo.getListOfNotes().size());
+
+        presenter.onSelectedEmployee(testEmployeeTwo);
+        presenter.onAddNoteButtonClicked();
+        List<Note> testListTwo = testEmployeeTwo.getListOfNotes();
+
+        assertEquals(1, testListTwo.size());
+        assertEquals(testNoteTwo, testListTwo.get(0));
+
+        verify(noteDialogWindowPresenter).showWindow((CallBackForNote)anyObject());
+    }
+
+    @Test
+    @Ignore
     public void errorMessageWithPatchersShouldBeAppear() throws Exception {
 
         when(localization.error()).thenReturn("error");

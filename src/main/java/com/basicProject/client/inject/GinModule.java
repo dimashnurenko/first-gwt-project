@@ -16,6 +16,8 @@
 package com.basicProject.client.inject;
 
 import com.basicProject.client.Styles;
+import com.basicProject.client.dialogWindow.DialogWindowView;
+import com.basicProject.client.dialogWindow.DialogWindowViewImpl;
 import com.basicProject.client.mainWindow.MainWindowView;
 import com.basicProject.client.mainWindow.MainWindowViewImpl;
 import com.google.gwt.inject.client.AbstractGinModule;

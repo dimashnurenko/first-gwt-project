@@ -13,34 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.basicProject.client.noteDialogWindow;
+package com.basicProject.client.showNotesWindow;
 
-import com.basicProject.client.mvp.View;
-import com.google.inject.ImplementedBy;
+import com.google.inject.Inject;
 
 /**
  * @author Dmitry Shnurenko
  */
-@ImplementedBy(NoteDialogWindowViewImpl.class)
-public interface NoteDialogWindowView extends View<NoteDialogWindowView.ActionDelegate> {
+public class ShowNotesWindowPresenter implements ShowNotesWindowView.ActionDelegate {
 
-    public interface ActionDelegate {
+    private final ShowNotesWindowView showNotesWindowView;
 
-        void onClickAddNote();
-
-        void onClickCancel();
-
+    @Inject
+    public ShowNotesWindowPresenter(final ShowNotesWindowView showNotesWindowView) {
+        this.showNotesWindowView = showNotesWindowView;
+        this.showNotesWindowView.setDelegate(this);
     }
 
-    String getTitle();
-
-    void setTitle(String title);
-
-    String getText();
-
-    void setText(String text);
-
-    void showWindow();
-
-    void hideWindow();
+    @Override
+    public void onCancelButtonClicked() {
+        showNotesWindowView.hideWindow();
+    }
 }

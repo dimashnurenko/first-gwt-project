@@ -13,34 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.basicProject.client.noteDialogWindow;
+package com.basicProject.client.mvp;
 
-import com.basicProject.client.mvp.View;
-import com.google.inject.ImplementedBy;
+import com.basicProject.client.entity.Employee;
+import com.basicProject.client.entity.Note;
+
+import java.util.List;
 
 /**
  * @author Dmitry Shnurenko
  */
-@ImplementedBy(NoteDialogWindowViewImpl.class)
-public interface NoteDialogWindowView extends View<NoteDialogWindowView.ActionDelegate> {
+public interface CallBackForNote {
 
-    public interface ActionDelegate {
-
-        void onClickAddNote();
-
-        void onClickCancel();
-
-    }
-
-    String getTitle();
-
-    void setTitle(String title);
-
-    String getText();
-
-    void setText(String text);
-
-    void showWindow();
-
-    void hideWindow();
+    void onChangeTableOfNotes(Note note);
 }

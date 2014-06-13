@@ -35,6 +35,10 @@ public interface MainWindowView extends View<MainWindowView.ActionDelegate> {
 
         void onRemoveButtonClicked();
 
+        void onAddNoteButtonClicked();
+
+        void onShowNotesButtonClicked();
+
         void onSelectedEmployee(Employee employee);
 
         void go(HasOneWidget widget);
@@ -44,7 +48,5 @@ public interface MainWindowView extends View<MainWindowView.ActionDelegate> {
     void setEmployeesList(List<Employee> list);
 
     void setExceptionMessage(String message);
-
-    void setNotesList(List<Note> list);
 
 }

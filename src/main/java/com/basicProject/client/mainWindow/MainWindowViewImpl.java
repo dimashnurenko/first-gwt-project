@@ -20,9 +20,14 @@ package com.basicProject.client.mainWindow;
 import com.basicProject.client.Localization;
 import com.basicProject.client.entity.Employee;
 import com.basicProject.client.entity.Note;
+import com.gargoylesoftware.htmlunit.javascript.host.HashChangeEvent;
 import com.google.gwt.cell.client.ButtonCell;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.HasAllMouseHandlers;
+import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -46,7 +51,6 @@ import java.util.List;
  */
 public class MainWindowViewImpl extends Composite implements MainWindowView {
 
-
     interface MainWindowImplUiBinder extends UiBinder<Widget, MainWindowViewImpl> {
     }
 
@@ -60,6 +64,8 @@ public class MainWindowViewImpl extends Composite implements MainWindowView {
     Button              removeButton;
     @UiField
     TextBox             textBox;
+    @UiField
+    Button              showNotes;
 
     private ButtonCell addNoteButton;
 
@@ -71,7 +77,7 @@ public class MainWindowViewImpl extends Composite implements MainWindowView {
         initWidget(ourUiBinder.createAndBindUi(this));
     }
 
-    private CellTable<Employee> createTable(Localization local) {
+    private CellTable<Employee> createTable(final Localization local) {
         CellTable<Employee> table = new CellTable<>();
 
         TextColumn<Employee> firstName = new TextColumn<Employee>() {
@@ -100,23 +106,21 @@ public class MainWindowViewImpl extends Composite implements MainWindowView {
         Column<Employee, String> addNote = new Column<Employee, String>(addNoteButton) {
             @Override
             public String getValue(Employee object) {
-                return "Add note";
+                return local.addNote();
             }
         };
 
         addNote.setFieldUpdater(new FieldUpdater<Employee, String>() {
             @Override
             public void update(int index, Employee object, String value) {
-
+                delegate.onAddNoteButtonClicked();
             }
         });
-
 
         table.addColumn(firstName, local.firstName());
         table.addColumn(middleName, local.middleName());
         table.addColumn(lastName, local.lastName());
         table.addColumn(addNote, local.listOfNotes());
-
 
         final SingleSelectionModel<Employee> selectionModel = new SingleSelectionModel<>();
         selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
@@ -130,30 +134,6 @@ public class MainWindowViewImpl extends Composite implements MainWindowView {
 
         return table;
     }
-
-    /*private CellTable<Note> createNoteTable(Localization local){
-
-        CellTable tableOfNote = new CellTable();
-
-        TextColumn<Note> title = new TextColumn<Note>() {
-            @Override
-            public String getValue(Note object) {
-                return object.getTitle();
-            }
-        };
-
-        TextColumn<Note> text = new TextColumn<Note>() {
-            @Override
-            public String getValue(Note object) {
-                return object.getText();
-            }
-        };
-
-        tableOfNote.addColumn(title,local.titleNote());
-        tableOfNote.addColumn(text,local.textNote());
-
-        return tableOfNote;
-    }*/
 
     @Override
     public void setDelegate(ActionDelegate delegate) {
@@ -175,14 +155,14 @@ public class MainWindowViewImpl extends Composite implements MainWindowView {
         delegate.onRemoveButtonClicked();
     }
 
-    @Override
-    public void setEmployeesList(List<Employee> employees) {
-        tableOfEmployees.setRowData(employees);
+    @UiHandler("showNotes")
+    void onShowNotesButtonClicked(ClickEvent event){
+        delegate.onShowNotesButtonClicked();
     }
 
     @Override
-    public void setNotesList(List<Note> list) {
-
+    public void setEmployeesList(List<Employee> employees) {
+        tableOfEmployees.setRowData(employees);
     }
 
     @Override
