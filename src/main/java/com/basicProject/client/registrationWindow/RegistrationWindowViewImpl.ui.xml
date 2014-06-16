@@ -1,0 +1,29 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+        >
+
+    <ui:with field="cssStyle" type="com.basicProject.client.Styles"/>
+    <ui:with field="locale" type="com.basicProject.client.Localization"/>
+
+    <g:DockLayoutPanel unit="PX" width="600px" height="600px" addStyleNames="{cssStyle.style.simplePanel}">
+
+        <g:center>
+            <g:FlowPanel>
+                <g:Label text="{locale.login}"/>
+                <g:TextBox ui:field="loginTextBox"/>
+                <g:Label text="{locale.email}"/>
+                <g:TextBox ui:field="emailTextBox"/>
+                <g:Label text="{locale.password}"/>
+                <g:TextBox ui:field="passwordTextBox"/>
+            </g:FlowPanel>
+        </g:center>
+
+        <g:south size="400">
+            <g:FlowPanel addStyleNames="{cssStyle.style.buttonPanelRegistrationPage}">
+                <g:Button text="{locale.registerButton}" ui:field="registerButton" addStyleNames="{cssStyle.style.button}"/>
+                <g:Button text="{locale.cancelButton}" ui:field="cancel" addStyleNames="{cssStyle.style.button}"/>
+            </g:FlowPanel>
+        </g:south>
+    </g:DockLayoutPanel>
+
+</ui:UiBinder>

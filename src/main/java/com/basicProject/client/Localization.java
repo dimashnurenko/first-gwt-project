@@ -49,4 +49,12 @@ public interface Localization extends Constants {
     String okButton();
 
     String addNote();
+
+    String registerButton();
+
+    String login();
+
+    String email();
+
+    String password();
 }

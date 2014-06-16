@@ -5,10 +5,10 @@
     <ui:with field="cssStyle" type="com.basicProject.client.Styles"/>
     <ui:with field="locale" type="com.basicProject.client.Localization"/>
 
-    <g:DockLayoutPanel unit="PX" width="600px" height="600px">
+    <g:DockLayoutPanel unit="PX" width="600px" height="600px" addStyleNames="{cssStyle.style.simplePanel}">
         <g:north size="20">
             <g:FlowPanel>
-                <g:TextBox ui:field="textBox" readOnly="true" addStyleNames="{cssStyle.style.textBox}"/>
+                <g:Label ui:field="textBox" addStyleNames="{cssStyle.style.textBox}"/>
             </g:FlowPanel>
         </g:north>
 
@@ -16,7 +16,7 @@
             <g:FlowPanel>
                 <g:Image resource="{cssStyle.image}"/>
                 <!--<g:ScrollPanel height="100%" width="100%">-->
-                    <c:CellTable addStyleNames='{cssStyle.style.cellTable}' ui:field='tableOfEmployees'/>
+                <c:CellTable addStyleNames='{cssStyle.style.cellTable}' pageSize="3" ui:field='tableOfEmployees'/>
                 <!--</g:ScrollPanel>-->
             </g:FlowPanel>
         </g:center>
@@ -27,6 +27,7 @@
                 <g:Button text="{locale.editButton}" ui:field="editButton" addStyleNames="{cssStyle.style.button}"/>
                 <g:Button text="{locale.removeButton}" ui:field="removeButton" addStyleNames="{cssStyle.style.button}"/>
                 <g:Button text="{locale.showNotes}" ui:field="showNotes" addStyleNames="{cssStyle.style.button}"/>
+                <g:Button text="{locale.registerButton}" ui:field="registerButton" addStyleNames="{cssStyle.style.button}"/>
             </g:FlowPanel>
         </g:south>
     </g:DockLayoutPanel>

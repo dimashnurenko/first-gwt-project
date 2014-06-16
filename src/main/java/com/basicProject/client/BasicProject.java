@@ -17,6 +17,7 @@ package com.basicProject.client;
 
 import com.basicProject.client.inject.Injector;
 import com.basicProject.client.mainWindow.MainWindowPresenter;
+import com.basicProject.client.navigator.MainNavigator;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
@@ -29,15 +30,11 @@ public class BasicProject implements EntryPoint {
 
     @Override
     public void onModuleLoad() {
-        SimpleLayoutPanel panel = new SimpleLayoutPanel();
-        RootLayoutPanel.get().add(panel);
 
         Injector injector = GWT.create(Injector.class);
 
         injector.getStyles().style().ensureInjected();
 
-        MainWindowPresenter presenter = injector.getMainWindowPresenter();
-
-        presenter.go(panel);
+        MainNavigator presenter = injector.getMainNavigator();
     }
 }

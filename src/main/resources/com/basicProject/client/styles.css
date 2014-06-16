@@ -44,9 +44,18 @@
 
 .buttonPanel{
     margin: 10% auto;
-    margin-left: 110px;
+    margin-left: 65px;
+}
+
+.buttonPanelRegistrationPage{
+    margin: 10% auto;
+    margin-left: 0px;
 }
 
 .textBox{
     color: red;
+}
+.simplePanel{
+    margin-top: 100px;
+    margin-left: 450px;
 }

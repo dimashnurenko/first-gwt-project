@@ -37,6 +37,7 @@ import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.SelectionChangeEvent;
@@ -63,9 +64,11 @@ public class MainWindowViewImpl extends Composite implements MainWindowView {
     @UiField
     Button              removeButton;
     @UiField
-    TextBox             textBox;
+    Label               textBox;
     @UiField
     Button              showNotes;
+    @UiField
+    Button              registerButton;
 
     private ButtonCell addNoteButton;
 
@@ -158,6 +161,11 @@ public class MainWindowViewImpl extends Composite implements MainWindowView {
     @UiHandler("showNotes")
     void onShowNotesButtonClicked(ClickEvent event){
         delegate.onShowNotesButtonClicked();
+    }
+
+    @UiHandler("registerButton")
+    void onRegistrationButtonClicked(ClickEvent event){
+        delegate.onRegistrationButtonClicked();
     }
 
     @Override

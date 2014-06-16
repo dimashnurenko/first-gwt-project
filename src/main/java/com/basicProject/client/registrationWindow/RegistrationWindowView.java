@@ -13,22 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.basicProject.client.inject;
+package com.basicProject.client.registrationWindow;
 
-import com.basicProject.client.Styles;
-import com.basicProject.client.mainWindow.MainWindowPresenter;
-import com.basicProject.client.navigator.MainNavigator;
-import com.google.gwt.inject.client.GinModules;
-import com.google.gwt.inject.client.Ginjector;
+import com.basicProject.client.mvp.View;
+import com.google.inject.ImplementedBy;
 
 /**
  * @author Dmitry Shnurenko
  */
-@GinModules(GinModule.class)
-public interface Injector extends Ginjector {
+@ImplementedBy(RegistrationWindowViewImpl.class)
+public interface RegistrationWindowView extends View<RegistrationWindowView.ActionDelegate> {
 
-    MainWindowPresenter getMainWindowPresenter();
-    MainNavigator getMainNavigator();
-    Styles getStyles();
+    public interface ActionDelegate{
 
+        void onRegistrationButtonClicked();
+
+        void onCancelButtonClicked();
+    }
 }

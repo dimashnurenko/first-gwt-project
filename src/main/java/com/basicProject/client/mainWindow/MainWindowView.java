@@ -39,6 +39,8 @@ public interface MainWindowView extends View<MainWindowView.ActionDelegate> {
 
         void onShowNotesButtonClicked();
 
+        void onRegistrationButtonClicked();
+
         void onSelectedEmployee(Employee employee);
 
         void go(HasOneWidget widget);
