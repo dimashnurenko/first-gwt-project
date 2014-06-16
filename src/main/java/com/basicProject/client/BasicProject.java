@@ -36,5 +36,6 @@ public class BasicProject implements EntryPoint {
         injector.getStyles().style().ensureInjected();
 
         MainNavigator presenter = injector.getMainNavigator();
+
     }
 }

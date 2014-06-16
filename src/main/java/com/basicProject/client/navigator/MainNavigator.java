@@ -15,16 +15,12 @@
  */
 package com.basicProject.client.navigator;
 
-import com.basicProject.client.inject.Injector;
 import com.basicProject.client.mainWindow.MainWindowPresenter;
 import com.basicProject.client.registrationWindow.RegistrationWindowPresenter;
-import com.basicProject.client.registrationWindow.RegistrationWindowView;
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.HasOneWidget;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 /**
  * @author Dmitry Shnurenko
@@ -44,10 +40,17 @@ public class MainNavigator {
         this.mainWindowPresenter = mainWindowPresenter;
         this.mainWindowPresenter.setMainNavigator(this);
         this.registrationWindowPresenter = registrationWindowPresenter;
+        this.registrationWindowPresenter.setMainNavigator(this);
 
         RootLayoutPanel.get().add(simpleLayoutPanel);
         mainWindowPresenter.go(simpleLayoutPanel);
 
+    }
+
+    public void setMainWindow(){
+        mainWindowPresenter.go(simpleLayoutPanel);
+        RootLayoutPanel.get().clear();
+        RootLayoutPanel.get().add(simpleLayoutPanel);
     }
 
     public void setRegistrationWindow() {

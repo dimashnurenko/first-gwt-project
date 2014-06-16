@@ -21,7 +21,8 @@
         <g:south size="400">
             <g:FlowPanel addStyleNames="{cssStyle.style.buttonPanelRegistrationPage}">
                 <g:Button text="{locale.registerButton}" ui:field="registerButton" addStyleNames="{cssStyle.style.button}"/>
-                <g:Button text="{locale.cancelButton}" ui:field="cancel" addStyleNames="{cssStyle.style.button}"/>
+                <g:Button text="{locale.showUsers}" ui:field="showUsersButton" addStyleNames="{cssStyle.style.button}"/>
+                <g:Button text="{locale.backButton}" ui:field="cancel" addStyleNames="{cssStyle.style.button}"/>
             </g:FlowPanel>
         </g:south>
     </g:DockLayoutPanel>

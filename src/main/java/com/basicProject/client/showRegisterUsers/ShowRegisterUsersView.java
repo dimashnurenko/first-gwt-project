@@ -13,32 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.basicProject.client.registrationWindow;
+package com.basicProject.client.showRegisterUsers;
 
+import com.basicProject.client.entity.User;
 import com.basicProject.client.mvp.View;
-import com.google.gwt.event.shared.SimpleEventBus;
+import com.basicProject.client.showNotesWindow.ShowNotesWindowViewImpl;
 import com.google.inject.ImplementedBy;
+
+import java.util.List;
 
 /**
  * @author Dmitry Shnurenko
  */
-@ImplementedBy(RegistrationWindowViewImpl.class)
-public interface RegistrationWindowView extends View<RegistrationWindowView.ActionDelegate> {
+@ImplementedBy(ShowRegisterUsersViewImpl.class)
+public interface ShowRegisterUsersView extends View<ShowRegisterUsersView.ActionDelegate> {
 
     public interface ActionDelegate{
 
     }
 
-    public String getLogin();
-
-    public String getPassword();
-
-    public String getEmail();
-
-    public void setLogin(String login);
-
-    public void setEmail(String email);
-
-    public void setPassword(String password);
-
+    void showRegisterUsers(List<User> list);
 }

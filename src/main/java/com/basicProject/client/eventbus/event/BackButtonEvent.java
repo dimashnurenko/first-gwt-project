@@ -13,32 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.basicProject.client.registrationWindow;
+package com.basicProject.client.eventbus.event;
 
-import com.basicProject.client.mvp.View;
-import com.google.gwt.event.shared.SimpleEventBus;
-import com.google.inject.ImplementedBy;
+import com.google.gwt.event.shared.GwtEvent;
 
 /**
  * @author Dmitry Shnurenko
  */
-@ImplementedBy(RegistrationWindowViewImpl.class)
-public interface RegistrationWindowView extends View<RegistrationWindowView.ActionDelegate> {
+public class BackButtonEvent extends GwtEvent<BackButtonEventHandler> {
 
-    public interface ActionDelegate{
+    public static Type<BackButtonEventHandler> TYPE = new Type<>();
 
+    public BackButtonEvent(){}
+
+    @Override
+    public Type<BackButtonEventHandler> getAssociatedType() {
+        return TYPE;
     }
 
-    public String getLogin();
-
-    public String getPassword();
-
-    public String getEmail();
-
-    public void setLogin(String login);
-
-    public void setEmail(String email);
-
-    public void setPassword(String password);
-
+    @Override
+    protected void dispatch(BackButtonEventHandler handler) {
+        handler.backToMainPage(this);
+    }
 }

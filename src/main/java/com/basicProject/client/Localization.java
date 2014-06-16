@@ -57,4 +57,8 @@ public interface Localization extends Constants {
     String email();
 
     String password();
+
+    String showUsers();
+
+    String backButton();
 }

@@ -15,10 +15,22 @@
  */
 package com.basicProject.client.registrationWindow;
 
+import com.basicProject.client.entity.User;
+import com.basicProject.client.eventbus.event.BackButtonEvent;
+import com.basicProject.client.eventbus.event.BackButtonEventHandler;
+import com.basicProject.client.eventbus.event.EventBus;
+import com.basicProject.client.eventbus.event.RegistrationEvent;
+import com.basicProject.client.eventbus.event.RegistrationEventHandler;
+import com.basicProject.client.eventbus.event.ShowRegisterUsersEvent;
+import com.basicProject.client.eventbus.event.ShowRegisterUsersEventHandler;
+import com.basicProject.client.navigator.MainNavigator;
+import com.basicProject.client.showRegisterUsers.ShowRegisterUsersView;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasOneWidget;
-import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.inject.Inject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Dmitry Shnurenko
@@ -26,21 +38,65 @@ import com.google.inject.Inject;
 public class RegistrationWindowPresenter implements RegistrationWindowView.ActionDelegate {
 
     private RegistrationWindowView registrationWindowView;
+    private ShowRegisterUsersView  registerUsersView;
+    private MainNavigator          mainNavigator;
+    private List<User>             users;
 
     @Inject
-    public RegistrationWindowPresenter(RegistrationWindowView registrationWindowView){
+    public RegistrationWindowPresenter(RegistrationWindowView registrationWindowView,
+                                      ShowRegisterUsersView registerUsersView) {
         this.registrationWindowView = registrationWindowView;
+        this.registerUsersView = registerUsersView;
+        this.users = new ArrayList<>();
 
+        backToMainWindow();
+        saveUserToDataBase();
+        showAllUsers();
     }
 
-    @Override
-    public void onRegistrationButtonClicked() {
+    private void showAllUsers() {
+        EventBus.getEventBus().addHandler(ShowRegisterUsersEvent.TYPE, new ShowRegisterUsersEventHandler() {
+            @Override
+            public void showAllUsersFromDataBase(ShowRegisterUsersEvent registerUsersEvent) {
+                registerUsersView.showRegisterUsers(users);
 
+            }
+        });
     }
 
-    @Override
-    public void onCancelButtonClicked() {
-        
+    private void backToMainWindow() {
+        EventBus.getEventBus().addHandler(BackButtonEvent.TYPE, new BackButtonEventHandler() {
+            @Override
+            public void backToMainPage(BackButtonEvent backButtonEvent) {
+                setMainNavigator(mainNavigator);
+                mainNavigator.setMainWindow();
+            }
+        });
+    }
+
+    private void saveUserToDataBase() {
+        EventBus.getEventBus().addHandler(RegistrationEvent.TYPE, new RegistrationEventHandler() {
+            @Override
+            public void saveEmployeeToDataBase(RegistrationEvent registrationEvent) {
+                String login = registrationWindowView.getLogin();
+                String email = registrationWindowView.getEmail();
+                String password = registrationWindowView.getPassword();
+
+                User user = new User(login, email, password);
+
+                users.add(user);
+
+                registrationWindowView.setLogin("");
+                registrationWindowView.setEmail("");
+                registrationWindowView.setPassword("");
+
+                Window.alert(user.getLogin() + " successfully save to database");
+            }
+        });
+    }
+
+    public void setMainNavigator(MainNavigator mainNavigator) {
+        this.mainNavigator = mainNavigator;
     }
 
     public void go(HasOneWidget widget) {
