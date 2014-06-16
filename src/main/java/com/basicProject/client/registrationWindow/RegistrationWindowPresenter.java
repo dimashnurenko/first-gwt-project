@@ -68,7 +68,6 @@ public class RegistrationWindowPresenter implements RegistrationWindowView.Actio
         EventBus.getEventBus().addHandler(BackButtonEvent.TYPE, new BackButtonEventHandler() {
             @Override
             public void backToMainPage(BackButtonEvent backButtonEvent) {
-                setMainNavigator(mainNavigator);
                 mainNavigator.setMainWindow();
             }
         });
@@ -94,11 +93,7 @@ public class RegistrationWindowPresenter implements RegistrationWindowView.Actio
             }
         });
     }
-
-    public void setMainNavigator(MainNavigator mainNavigator) {
-        this.mainNavigator = mainNavigator;
-    }
-
+    
     public void go(HasOneWidget widget) {
         widget.setWidget(registrationWindowView);
     }
