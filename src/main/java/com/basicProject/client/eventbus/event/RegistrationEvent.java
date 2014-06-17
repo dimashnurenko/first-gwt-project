@@ -15,24 +15,15 @@
  */
 package com.basicProject.client.eventbus.event;
 
-import com.basicProject.client.entity.Employee;
-import com.basicProject.client.entity.User;
 import com.google.gwt.event.shared.GwtEvent;
 
 /**
  * @author Dmitry Shnurenko
  */
 public class RegistrationEvent extends GwtEvent<RegistrationEventHandler> {
-
-    private User user;
-
-    public RegistrationEvent() {
-    }
-
     public static Type<RegistrationEventHandler> TYPE = new Type<>();
 
-    public User getUser() {
-        return user;
+    public RegistrationEvent() {
     }
 
     @Override

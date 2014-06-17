@@ -16,7 +16,6 @@
 package com.basicProject.client.registrationWindow;
 
 import com.basicProject.client.mvp.View;
-import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.inject.ImplementedBy;
 
 /**
@@ -25,7 +24,7 @@ import com.google.inject.ImplementedBy;
 @ImplementedBy(RegistrationWindowViewImpl.class)
 public interface RegistrationWindowView extends View<RegistrationWindowView.ActionDelegate> {
 
-    public interface ActionDelegate{
+    public interface ActionDelegate {
 
     }
 

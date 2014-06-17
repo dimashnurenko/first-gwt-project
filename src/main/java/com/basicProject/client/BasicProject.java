@@ -35,7 +35,12 @@ public class BasicProject implements EntryPoint {
 
         injector.getStyles().style().ensureInjected();
 
+        SimpleLayoutPanel panel = injector.getPanel();
+
+        RootLayoutPanel.get().add(panel);
+
         MainNavigator presenter = injector.getMainNavigator();
 
+        presenter.go(panel);
     }
 }

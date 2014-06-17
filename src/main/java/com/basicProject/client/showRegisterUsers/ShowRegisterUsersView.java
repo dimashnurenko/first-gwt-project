@@ -17,7 +17,6 @@ package com.basicProject.client.showRegisterUsers;
 
 import com.basicProject.client.entity.User;
 import com.basicProject.client.mvp.View;
-import com.basicProject.client.showNotesWindow.ShowNotesWindowViewImpl;
 import com.google.inject.ImplementedBy;
 
 import java.util.List;
@@ -28,9 +27,13 @@ import java.util.List;
 @ImplementedBy(ShowRegisterUsersViewImpl.class)
 public interface ShowRegisterUsersView extends View<ShowRegisterUsersView.ActionDelegate> {
 
-    public interface ActionDelegate{
+    public interface ActionDelegate {
+
+        void onCancelButtonClicked();
 
     }
+
+    void hideWindow();
 
     void showRegisterUsers(List<User> list);
 }

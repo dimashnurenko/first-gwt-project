@@ -17,16 +17,11 @@
  */
 package com.basicProject.client.registrationWindow;
 
-import com.basicProject.client.entity.User;
 import com.basicProject.client.eventbus.event.BackButtonEvent;
-import com.basicProject.client.eventbus.event.EventBus;
 import com.basicProject.client.eventbus.event.RegistrationEvent;
-import com.basicProject.client.eventbus.event.RegistrationEventHandler;
 import com.basicProject.client.eventbus.event.ShowRegisterUsersEvent;
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.shared.SimpleEventBus;
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -57,34 +52,36 @@ public class RegistrationWindowViewImpl extends Composite implements Registratio
     @UiField
     Button  showUsersButton;
 
-    private final SimpleEventBus simpleEventBus;
+    private final EventBus       eventBus;
+    private       ActionDelegate delegate;
 
     @Inject
-    public RegistrationWindowViewImpl(RegistrationWindowViewImplUiBinder ourUiBinder) {
+    public RegistrationWindowViewImpl(RegistrationWindowViewImplUiBinder ourUiBinder,
+                                      EventBus eventBus) {
 
-        this.simpleEventBus = EventBus.getEventBus();
+        this.eventBus = eventBus;
         initWidget(ourUiBinder.createAndBindUi(this));
     }
 
 
     @UiHandler("registerButton")
     void onRegisterButtonClicked(ClickEvent event) {
-        simpleEventBus.fireEvent(new RegistrationEvent());
+        eventBus.fireEvent(new RegistrationEvent());
     }
 
     @UiHandler("showUsersButton")
-    void onShowUsersButtonClicked(ClickEvent event){
-        simpleEventBus.fireEvent(new ShowRegisterUsersEvent());
+    void onShowUsersButtonClicked(ClickEvent event) {
+        eventBus.fireEvent(new ShowRegisterUsersEvent());
     }
 
     @UiHandler("cancel")
-    void onBackButtonClicked(ClickEvent event){
-        simpleEventBus.fireEvent(new BackButtonEvent());
+    void onBackButtonClicked(ClickEvent event) {
+        eventBus.fireEvent(new BackButtonEvent());
     }
 
     @Override
     public void setDelegate(ActionDelegate delegate) {
-
+        //do nothing
     }
 
     public String getLogin() {

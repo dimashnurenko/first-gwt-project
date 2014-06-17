@@ -24,7 +24,8 @@ public class BackButtonEvent extends GwtEvent<BackButtonEventHandler> {
 
     public static Type<BackButtonEventHandler> TYPE = new Type<>();
 
-    public BackButtonEvent(){}
+    public BackButtonEvent() {
+    }
 
     @Override
     public Type<BackButtonEventHandler> getAssociatedType() {

@@ -17,10 +17,10 @@ package com.basicProject.client.navigator;
 
 import com.basicProject.client.mainWindow.MainWindowPresenter;
 import com.basicProject.client.registrationWindow.RegistrationWindowPresenter;
+import com.google.gwt.user.client.ui.HasOneWidget;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
 
 /**
  * @author Dmitry Shnurenko
@@ -30,34 +30,26 @@ public class MainNavigator {
     private RegistrationWindowPresenter registrationWindowPresenter;
     private MainWindowPresenter         mainWindowPresenter;
 
-    private final SimpleLayoutPanel simpleLayoutPanel;
-
     @Inject
     public MainNavigator(RegistrationWindowPresenter registrationWindowPresenter,
-                         MainWindowPresenter mainWindowPresenter,
-                         SimpleLayoutPanel simpleLayoutPanel) {
-        this.simpleLayoutPanel = new SimpleLayoutPanel();
+                         MainWindowPresenter mainWindowPresenter) {
         this.mainWindowPresenter = mainWindowPresenter;
         this.mainWindowPresenter.setMainNavigator(this);
         this.registrationWindowPresenter = registrationWindowPresenter;
         this.registrationWindowPresenter.setMainNavigator(this);
-
-        RootLayoutPanel.get().add(simpleLayoutPanel);
-        mainWindowPresenter.go(simpleLayoutPanel);
-
     }
 
-    public void setMainWindow(){
-        mainWindowPresenter.go(simpleLayoutPanel);
-        RootLayoutPanel.get().clear();
-        RootLayoutPanel.get().add(simpleLayoutPanel);
+    public void go(HasOneWidget widget){
+        mainWindowPresenter.go(widget);
     }
 
-    public void setRegistrationWindow() {
-        registrationWindowPresenter.go(simpleLayoutPanel);
-        RootLayoutPanel.get().clear();
-        RootLayoutPanel.get().add(simpleLayoutPanel);
+    public void showMainWindow(SimpleLayoutPanel panel) {
+        panel.clear();
+        mainWindowPresenter.go(panel);
     }
 
-
+    public void showRegistrationWindow(SimpleLayoutPanel panel) {
+        panel.clear();
+        registrationWindowPresenter.go(panel);
+    }
 }

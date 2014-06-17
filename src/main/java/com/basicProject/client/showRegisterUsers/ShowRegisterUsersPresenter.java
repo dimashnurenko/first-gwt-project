@@ -15,8 +15,23 @@
  */
 package com.basicProject.client.showRegisterUsers;
 
+import com.google.inject.Inject;
+
 /**
  * @author Dmitry Shnurenko
  */
 public class ShowRegisterUsersPresenter implements ShowRegisterUsersView.ActionDelegate {
+
+    private ShowRegisterUsersView showRegisterUsersView;
+
+    @Inject
+    public ShowRegisterUsersPresenter(ShowRegisterUsersView showRegisterUsersView) {
+        this.showRegisterUsersView = showRegisterUsersView;
+        this.showRegisterUsersView.setDelegate(this);
+    }
+
+    @Override
+    public void onCancelButtonClicked() {
+        showRegisterUsersView.hideWindow();
+    }
 }

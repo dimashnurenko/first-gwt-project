@@ -16,11 +16,10 @@
 package com.basicProject.client.inject;
 
 import com.basicProject.client.Styles;
-import com.basicProject.client.dialogWindow.DialogWindowView;
-import com.basicProject.client.dialogWindow.DialogWindowViewImpl;
-import com.basicProject.client.mainWindow.MainWindowView;
-import com.basicProject.client.mainWindow.MainWindowViewImpl;
+import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.inject.client.AbstractGinModule;
+import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 import com.google.inject.Singleton;
 
 /**
@@ -30,7 +29,11 @@ public class GinModule extends AbstractGinModule {
 
     @Override
     protected void configure() {
-        bind(MainWindowView.class).to(MainWindowViewImpl.class);
+
+        bind(EventBus.class).to(SimpleEventBus.class).in(Singleton.class);
+
+        bind(SimpleLayoutPanel.class).in(Singleton.class);
+
         bind(Styles.class).in(Singleton.class);
     }
 }

@@ -55,7 +55,6 @@ public class ShowRegisterUsersViewImpl extends DialogBox implements ShowRegister
     public ShowRegisterUsersViewImpl(ShowRegisterUsersViewImplUiBinder ourUiBinder, Localization localization) {
         this.tableOfUsers = createTable(localization);
         add(ourUiBinder.createAndBindUi(this));
-
     }
 
     public CellTable<User> createTable(Localization localization) {
@@ -82,6 +81,10 @@ public class ShowRegisterUsersViewImpl extends DialogBox implements ShowRegister
 
     @UiHandler("cancel")
     void onCancelButtonClicked(ClickEvent event){
+        delegate.onCancelButtonClicked();
+    }
+
+    public void hideWindow(){
         hide();
     }
 

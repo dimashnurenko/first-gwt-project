@@ -16,10 +16,10 @@
 package com.basicProject.client.inject;
 
 import com.basicProject.client.Styles;
-import com.basicProject.client.mainWindow.MainWindowPresenter;
 import com.basicProject.client.navigator.MainNavigator;
 import com.google.gwt.inject.client.GinModules;
 import com.google.gwt.inject.client.Ginjector;
+import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 
 /**
  * @author Dmitry Shnurenko
@@ -27,8 +27,10 @@ import com.google.gwt.inject.client.Ginjector;
 @GinModules(GinModule.class)
 public interface Injector extends Ginjector {
 
-    MainWindowPresenter getMainWindowPresenter();
     MainNavigator getMainNavigator();
+
+    SimpleLayoutPanel getPanel();
+
     Styles getStyles();
 
 }

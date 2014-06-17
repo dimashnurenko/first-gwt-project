@@ -15,10 +15,7 @@
  */
 package com.basicProject.client.eventbus.event;
 
-import com.basicProject.client.entity.User;
 import com.google.gwt.event.shared.GwtEvent;
-
-import java.util.List;
 
 /**
  * @author Dmitry Shnurenko
@@ -26,18 +23,7 @@ import java.util.List;
 public class ShowRegisterUsersEvent extends GwtEvent<ShowRegisterUsersEventHandler> {
     public static Type<ShowRegisterUsersEventHandler> TYPE = new Type<>();
 
-    private List<User> users;
-
     public ShowRegisterUsersEvent() {
-
-    }
-
-    public List<User> getUsers(){
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
     }
 
     @Override

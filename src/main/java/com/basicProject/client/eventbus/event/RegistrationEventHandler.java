@@ -15,7 +15,6 @@
  */
 package com.basicProject.client.eventbus.event;
 
-import com.basicProject.client.entity.Employee;
 import com.google.gwt.event.shared.EventHandler;
 
 /**

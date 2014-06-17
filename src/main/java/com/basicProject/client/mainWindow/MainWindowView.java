@@ -19,12 +19,14 @@ import com.basicProject.client.entity.Employee;
 import com.basicProject.client.entity.Note;
 import com.basicProject.client.mvp.View;
 import com.google.gwt.user.client.ui.HasOneWidget;
+import com.google.inject.ImplementedBy;
 
 import java.util.List;
 
 /**
  * @author Dmitry Shnurenko
  */
+@ImplementedBy(MainWindowViewImpl.class)
 public interface MainWindowView extends View<MainWindowView.ActionDelegate> {
 
     public interface ActionDelegate {
