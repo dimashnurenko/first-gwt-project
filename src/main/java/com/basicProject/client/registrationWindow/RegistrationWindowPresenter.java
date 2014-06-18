@@ -100,6 +100,10 @@ public class RegistrationWindowPresenter implements RegistrationWindowView.Actio
         } else if (!StringMatcher.match(Regex.PASSWORD, password)) {
             registrationWindowView.setErrorPassword(localization.errorPassword());
         } else {
+            registrationWindowView.setErrorLogin("");
+            registrationWindowView.setErrorEmail("");
+            registrationWindowView.setErrorPassword("");
+
             User user = User.make()
                             .login(login)
                             .email(email)
