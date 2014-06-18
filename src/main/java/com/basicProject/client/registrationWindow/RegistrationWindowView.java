@@ -42,4 +42,10 @@ public interface RegistrationWindowView extends View<RegistrationWindowView.Acti
 
     public void setText(String text);
 
+    public void setErrorLogin(String text);
+
+    public void setErrorEmail(String text);
+
+    public void setErrorPassword(String text);
+
 }

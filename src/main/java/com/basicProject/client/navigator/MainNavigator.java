@@ -18,7 +18,6 @@ package com.basicProject.client.navigator;
 import com.basicProject.client.mainWindow.MainWindowPresenter;
 import com.basicProject.client.registrationWindow.RegistrationWindowPresenter;
 import com.google.gwt.user.client.ui.HasOneWidget;
-import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 import com.google.inject.Inject;
 
@@ -29,6 +28,7 @@ public class MainNavigator {
 
     private RegistrationWindowPresenter registrationWindowPresenter;
     private MainWindowPresenter         mainWindowPresenter;
+    private SimpleLayoutPanel           simpleLayoutPanel;
 
     @Inject
     public MainNavigator(RegistrationWindowPresenter registrationWindowPresenter,
@@ -39,17 +39,18 @@ public class MainNavigator {
         this.registrationWindowPresenter.setMainNavigator(this);
     }
 
-    public void go(HasOneWidget widget){
-        mainWindowPresenter.go(widget);
-    }
-
-    public void showMainWindow(SimpleLayoutPanel panel) {
-        panel.clear();
+    public void go(SimpleLayoutPanel panel) {
+        this.simpleLayoutPanel = panel;
         mainWindowPresenter.go(panel);
     }
 
-    public void showRegistrationWindow(SimpleLayoutPanel panel) {
-        panel.clear();
-        registrationWindowPresenter.go(panel);
+    public void showMainWindow() {
+        simpleLayoutPanel.clear();
+        mainWindowPresenter.go(simpleLayoutPanel);
+    }
+
+    public void showRegistrationWindow() {
+        simpleLayoutPanel.clear();
+        registrationWindowPresenter.go(simpleLayoutPanel);
     }
 }

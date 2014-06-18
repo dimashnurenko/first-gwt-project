@@ -21,7 +21,7 @@ import com.google.gwt.event.shared.GwtEvent;
  * @author Dmitry Shnurenko
  */
 public class RegistrationEvent extends GwtEvent<RegistrationEventHandler> {
-    public static Type<RegistrationEventHandler> TYPE = new Type<>();
+    public static Type<RegistrationEventHandler> TYPE = new Type<RegistrationEventHandler>();
 
     public RegistrationEvent() {
     }

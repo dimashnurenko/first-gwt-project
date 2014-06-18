@@ -19,7 +19,6 @@ import com.basicProject.client.Styles;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.inject.client.AbstractGinModule;
-import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 import com.google.inject.Singleton;
 
 /**
@@ -31,8 +30,6 @@ public class GinModule extends AbstractGinModule {
     protected void configure() {
 
         bind(EventBus.class).to(SimpleEventBus.class).in(Singleton.class);
-
-        bind(SimpleLayoutPanel.class).in(Singleton.class);
 
         bind(Styles.class).in(Singleton.class);
     }

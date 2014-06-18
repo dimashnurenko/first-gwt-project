@@ -63,4 +63,10 @@ public interface Localization extends Constants {
     String backButton();
 
     String showTextLabel();
+
+    String errorLogin();
+
+    String errorEmail();
+
+    String errorPassword();
 }

@@ -35,5 +35,7 @@ public interface ShowRegisterUsersView extends View<ShowRegisterUsersView.Action
 
     void hideWindow();
 
+    void showWindow();
+
     void showRegisterUsers(List<User> list);
 }

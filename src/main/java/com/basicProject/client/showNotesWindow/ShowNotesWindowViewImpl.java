@@ -49,7 +49,8 @@ public class ShowNotesWindowViewImpl extends DialogBox implements ShowNotesWindo
     private ActionDelegate delegate;
 
     @Inject
-    public ShowNotesWindowViewImpl(ShowNotesWindowUiBinder ourUiBinder, Localization localization) {
+    public ShowNotesWindowViewImpl(ShowNotesWindowUiBinder ourUiBinder,
+                                   Localization localization) {
         this.tableOfNotes = createTable(localization);
 
         add(ourUiBinder.createAndBindUi(this));

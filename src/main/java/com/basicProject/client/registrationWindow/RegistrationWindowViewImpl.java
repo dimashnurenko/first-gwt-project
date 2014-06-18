@@ -58,9 +58,14 @@ public class RegistrationWindowViewImpl extends Composite implements Registratio
     Hyperlink showText;
     @UiField
     Label     textLabel;
+    @UiField
+    Label     errorLogin;
+    @UiField
+    Label     errorEmail;
+    @UiField
+    Label     errorPassword;
 
-    private final EventBus       eventBus;
-    private       ActionDelegate delegate;
+    private final EventBus eventBus;
 
     @Inject
     public RegistrationWindowViewImpl(RegistrationWindowViewImplUiBinder ourUiBinder,
@@ -120,7 +125,22 @@ public class RegistrationWindowViewImpl extends Composite implements Registratio
         passwordTextBox.setText(password);
     }
 
-    public void setText(String text){
+    public void setText(String text) {
         textLabel.setText(text);
+    }
+
+    @Override
+    public void setErrorLogin(String text) {
+        errorLogin.setText(text);
+    }
+
+    @Override
+    public void setErrorEmail(String text) {
+        errorEmail.setText(text);
+    }
+
+    @Override
+    public void setErrorPassword(String text) {
+        errorPassword.setText(text);
     }
 }

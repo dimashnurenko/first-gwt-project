@@ -34,7 +34,7 @@
 .cellTable {
     position:absolute;
     top: 1px;
-    width: 100%;
+    width: 600px;
     border-collapse: collapse; border: 1px solid black;
     background: lightgreen;
     border-bottom: 1px solid #ccc;

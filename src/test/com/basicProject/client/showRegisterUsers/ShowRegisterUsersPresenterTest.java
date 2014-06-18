@@ -15,25 +15,29 @@
  */
 package com.basicProject.client.showRegisterUsers;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+
+import static org.mockito.Mockito.verify;
 
 /**
  * @author Dmitry Shnurenko
  */
-@Singleton
-public class ShowRegisterUsersPresenter implements ShowRegisterUsersView.ActionDelegate {
+@RunWith(MockitoJUnitRunner.class)
+public class ShowRegisterUsersPresenterTest {
 
-    private ShowRegisterUsersView showRegisterUsersView;
+    @Mock
+    ShowRegisterUsersView showRegisterUsersView;
+    @InjectMocks
+    ShowRegisterUsersPresenter presenter;
 
-    @Inject
-    public ShowRegisterUsersPresenter(ShowRegisterUsersView showRegisterUsersView) {
-        this.showRegisterUsersView = showRegisterUsersView;
-        this.showRegisterUsersView.setDelegate(this);
-    }
+    @Test
+    public void windowWithRegisteredUsersShouldBeDisappeared() throws Exception{
+        presenter.onCancelButtonClicked();
 
-    @Override
-    public void onCancelButtonClicked() {
-        showRegisterUsersView.hideWindow();
+        verify(showRegisterUsersView).hideWindow();
     }
 }

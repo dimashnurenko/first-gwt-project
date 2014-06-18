@@ -19,14 +19,11 @@ package com.basicProject.client.entity;
  * @author Dmitry Shnurenko
  */
 public class User {
-    private final String login;
-    private final String email;
-    private final String password;
+    private String login;
+    private String email;
+    private String password;
 
-    public User(UserBuilder builder) {
-        this.login = builder.login;
-        this.email = builder.email;
-        this.password = builder.password;
+    private User() {
     }
 
     public String getLogin() {
@@ -41,31 +38,22 @@ public class User {
         return password;
     }
 
-    public static class UserBuilder {
-        private String login;
-        private String email;
-        private String password;
+    public User login(String login) {
+        this.login = login;
+        return this;
+    }
 
-        public UserBuilder() {
-        }
+    public User email(String email) {
+        this.email = email;
+        return this;
+    }
 
-        public UserBuilder login(String login) {
-            this.login = login;
-            return this;
-        }
+    public User password(String password) {
+        this.password = password;
+        return this;
+    }
 
-        public UserBuilder email(String email) {
-            this.email = email;
-            return this;
-        }
-
-        public UserBuilder password(String password) {
-            this.password = password;
-            return this;
-        }
-
-        public User build() {
-            return new User(this);
-        }
+    public static User make() {
+        return new User();
     }
 }

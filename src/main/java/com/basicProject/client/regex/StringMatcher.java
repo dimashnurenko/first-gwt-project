@@ -13,27 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.basicProject.client.showRegisterUsers;
-
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
+package com.basicProject.client.regex;
 
 /**
  * @author Dmitry Shnurenko
  */
-@Singleton
-public class ShowRegisterUsersPresenter implements ShowRegisterUsersView.ActionDelegate {
+public class StringMatcher {
 
-    private ShowRegisterUsersView showRegisterUsersView;
-
-    @Inject
-    public ShowRegisterUsersPresenter(ShowRegisterUsersView showRegisterUsersView) {
-        this.showRegisterUsersView = showRegisterUsersView;
-        this.showRegisterUsersView.setDelegate(this);
-    }
-
-    @Override
-    public void onCancelButtonClicked() {
-        showRegisterUsersView.hideWindow();
+    public static boolean match(String regex, String income) {
+        if (income.matches(regex)) {
+            return true;
+        }
+        return false;
     }
 }

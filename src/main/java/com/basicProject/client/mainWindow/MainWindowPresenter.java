@@ -27,7 +27,6 @@ import com.basicProject.client.registrationWindow.RegistrationWindowPresenter;
 import com.basicProject.client.showNotesWindow.ShowNotesWindowPresenter;
 import com.basicProject.client.showNotesWindow.ShowNotesWindowView;
 import com.google.gwt.user.client.ui.HasOneWidget;
-import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -51,7 +50,6 @@ public class MainWindowPresenter implements MainWindowView.ActionDelegate {
     private final ShowNotesWindowPresenter    showNotesWindowPresenter;
     private final RegistrationWindowPresenter registrationWindowPresenter;
     private final NoteDialogWindowPresenter   noteDialogWindowPresenter;
-    private final SimpleLayoutPanel           layoutPanel;
     private final Localization                localization;
 
     private Employee      selectedEmployee;
@@ -63,7 +61,6 @@ public class MainWindowPresenter implements MainWindowView.ActionDelegate {
                                DialogWindowPresenter dialogWindowPresenter,
                                NoteDialogWindowPresenter noteDialogWindowPresenter,
                                RegistrationWindowPresenter registrationWindowPresenter,
-                               SimpleLayoutPanel layoutPanel,
                                final ShowNotesWindowPresenter showNotesWindowPresenter,
                                final Localization localization) {
 
@@ -77,7 +74,6 @@ public class MainWindowPresenter implements MainWindowView.ActionDelegate {
         this.registrationWindowPresenter = registrationWindowPresenter;
         this.employees = new ArrayList<>();
         this.notes = new ArrayList<>();
-        this.layoutPanel = layoutPanel;
 
         addEmployeeCallBack = new CallBack() {
             @Override
@@ -139,7 +135,7 @@ public class MainWindowPresenter implements MainWindowView.ActionDelegate {
 
     @Override
     public void onRegistrationButtonClicked() {
-        mainNavigator.showRegistrationWindow(layoutPanel);
+        mainNavigator.showRegistrationWindow();
     }
 
     @Override

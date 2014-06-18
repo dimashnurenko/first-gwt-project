@@ -31,13 +31,12 @@ public class BasicProject implements EntryPoint {
     @Override
     public void onModuleLoad() {
 
+        SimpleLayoutPanel panel = new SimpleLayoutPanel();
+        RootLayoutPanel.get().add(panel);
+
         Injector injector = GWT.create(Injector.class);
 
         injector.getStyles().style().ensureInjected();
-
-        SimpleLayoutPanel panel = injector.getPanel();
-
-        RootLayoutPanel.get().add(panel);
 
         MainNavigator presenter = injector.getMainNavigator();
 

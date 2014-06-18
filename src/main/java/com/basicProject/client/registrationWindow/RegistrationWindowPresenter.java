@@ -15,6 +15,7 @@
  */
 package com.basicProject.client.registrationWindow;
 
+import com.basicProject.client.Localization;
 import com.basicProject.client.Styles;
 import com.basicProject.client.entity.User;
 import com.basicProject.client.eventbus.event.BackButtonEvent;
@@ -26,6 +27,8 @@ import com.basicProject.client.eventbus.event.ShowRegisterUsersEventHandler;
 import com.basicProject.client.eventbus.event.ShowTextEvent;
 import com.basicProject.client.eventbus.event.ShowTextEventHandler;
 import com.basicProject.client.navigator.MainNavigator;
+import com.basicProject.client.regex.Regex;
+import com.basicProject.client.regex.StringMatcher;
 import com.basicProject.client.showRegisterUsers.ShowRegisterUsersView;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.resources.client.ResourceCallback;
@@ -33,8 +36,8 @@ import com.google.gwt.resources.client.ResourceException;
 import com.google.gwt.resources.client.TextResource;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasOneWidget;
-import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +45,7 @@ import java.util.List;
 /**
  * @author Dmitry Shnurenko
  */
+@Singleton
 public class RegistrationWindowPresenter implements RegistrationWindowView.ActionDelegate,
                                                     RegistrationEventHandler,
                                                     ShowRegisterUsersEventHandler,
@@ -52,20 +56,20 @@ public class RegistrationWindowPresenter implements RegistrationWindowView.Actio
     private ShowRegisterUsersView  registerUsersView;
     private MainNavigator          mainNavigator;
     private EventBus               eventBus;
-    private SimpleLayoutPanel      layoutPanel;
     private List<User>             users;
     private Styles                 styles;
+    private Localization           localization;
 
     @Inject
     public RegistrationWindowPresenter(RegistrationWindowView registrationWindowView,
                                        ShowRegisterUsersView registerUsersView,
-                                       SimpleLayoutPanel layoutPanel,
                                        Styles styles,
+                                       Localization localization,
                                        EventBus eventBus) {
         this.registrationWindowView = registrationWindowView;
-        this.layoutPanel = layoutPanel;
         this.eventBus = eventBus;
         this.registerUsersView = registerUsersView;
+        this.localization = localization;
         this.styles = styles;
         this.users = new ArrayList<>();
 
@@ -89,29 +93,37 @@ public class RegistrationWindowPresenter implements RegistrationWindowView.Actio
         String email = registrationWindowView.getEmail();
         String password = registrationWindowView.getPassword();
 
-        User user = new User.UserBuilder()
-                .login(login)
-                .email(email)
-                .password(password)
-                .build();
+        if (!StringMatcher.match(Regex.LOGIN, login)) {
+            registrationWindowView.setErrorLogin(localization.errorLogin());
+        } else if (!StringMatcher.match(Regex.EMAIL, email)) {
+            registrationWindowView.setErrorEmail(localization.errorEmail());
+        } else if (!StringMatcher.match(Regex.PASSWORD, password)) {
+            registrationWindowView.setErrorPassword(localization.errorPassword());
+        } else {
+            User user = User.make()
+                            .login(login)
+                            .email(email)
+                            .password(password);
 
-        users.add(user);
+            users.add(user);
 
-        registrationWindowView.setLogin("");
-        registrationWindowView.setEmail("");
-        registrationWindowView.setPassword("");
+            registrationWindowView.setLogin("");
+            registrationWindowView.setEmail("");
+            registrationWindowView.setPassword("");
 
-        Window.alert(user.getLogin() + " successfully save to database");
+            Window.alert(user.getLogin() + "\n" + "successfully save to database");
+        }
     }
 
     @Override
     public void backToMainPage(BackButtonEvent backButtonEvent) {
-        mainNavigator.showMainWindow(layoutPanel);
+        mainNavigator.showMainWindow();
     }
 
     @Override
     public void showAllUsersFromDataBase(ShowRegisterUsersEvent registerUsersEvent) {
         registerUsersView.showRegisterUsers(users);
+        registerUsersView.showWindow();
     }
 
     @Override

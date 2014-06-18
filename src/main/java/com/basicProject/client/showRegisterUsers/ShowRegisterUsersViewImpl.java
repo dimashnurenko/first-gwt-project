@@ -18,11 +18,7 @@
 package com.basicProject.client.showRegisterUsers;
 
 import com.basicProject.client.Localization;
-import com.basicProject.client.entity.Note;
 import com.basicProject.client.entity.User;
-import com.basicProject.client.showNotesWindow.ShowNotesWindowView;
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -80,12 +76,16 @@ public class ShowRegisterUsersViewImpl extends DialogBox implements ShowRegister
     }
 
     @UiHandler("cancel")
-    void onCancelButtonClicked(ClickEvent event){
-        delegate.onCancelButtonClicked();
+    void onCancelButtonClicked(ClickEvent event) {
+        hide();
     }
 
-    public void hideWindow(){
+    public void hideWindow() {
         hide();
+    }
+
+    public void showWindow() {
+        show();
     }
 
     @Override
@@ -93,8 +93,7 @@ public class ShowRegisterUsersViewImpl extends DialogBox implements ShowRegister
         this.delegate = delegate;
     }
 
-    public void showRegisterUsers(List<User> list){
+    public void showRegisterUsers(List<User> list) {
         tableOfUsers.setRowData(list);
-        show();
     }
 }

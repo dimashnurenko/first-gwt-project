@@ -19,7 +19,6 @@ import com.basicProject.client.Styles;
 import com.basicProject.client.navigator.MainNavigator;
 import com.google.gwt.inject.client.GinModules;
 import com.google.gwt.inject.client.Ginjector;
-import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 
 /**
  * @author Dmitry Shnurenko
@@ -28,8 +27,6 @@ import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 public interface Injector extends Ginjector {
 
     MainNavigator getMainNavigator();
-
-    SimpleLayoutPanel getPanel();
 
     Styles getStyles();
 
