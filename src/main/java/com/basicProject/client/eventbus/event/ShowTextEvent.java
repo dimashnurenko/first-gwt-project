@@ -13,33 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.basicProject.client.registrationWindow;
+package com.basicProject.client.eventbus.event;
 
-import com.basicProject.client.mvp.View;
-import com.google.inject.ImplementedBy;
+import com.google.gwt.event.shared.GwtEvent;
 
 /**
  * @author Dmitry Shnurenko
  */
-@ImplementedBy(RegistrationWindowViewImpl.class)
-public interface RegistrationWindowView extends View<RegistrationWindowView.ActionDelegate> {
+public class ShowTextEvent extends GwtEvent<ShowTextEventHandler> {
+    public static Type<ShowTextEventHandler> TYPE = new Type<>();
 
-    public interface ActionDelegate {
-
+    public ShowTextEvent() {
     }
 
-    public String getLogin();
+    @Override
+    public Type<ShowTextEventHandler> getAssociatedType() {
+        return TYPE;
+    }
 
-    public String getPassword();
-
-    public String getEmail();
-
-    public void setLogin(String login);
-
-    public void setEmail(String email);
-
-    public void setPassword(String password);
-
-    public void setText(String text);
-
+    @Override
+    protected void dispatch(ShowTextEventHandler handler) {
+        handler.showTextFromExternalTextResource(this);
+    }
 }

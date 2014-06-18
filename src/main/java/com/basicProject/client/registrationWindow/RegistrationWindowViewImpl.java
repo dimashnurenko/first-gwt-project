@@ -20,6 +20,7 @@ package com.basicProject.client.registrationWindow;
 import com.basicProject.client.eventbus.event.BackButtonEvent;
 import com.basicProject.client.eventbus.event.RegistrationEvent;
 import com.basicProject.client.eventbus.event.ShowRegisterUsersEvent;
+import com.basicProject.client.eventbus.event.ShowTextEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -27,6 +28,8 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Hyperlink;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
@@ -40,17 +43,21 @@ public class RegistrationWindowViewImpl extends Composite implements Registratio
     }
 
     @UiField
-    TextBox loginTextBox;
+    TextBox   loginTextBox;
     @UiField
-    TextBox emailTextBox;
+    TextBox   emailTextBox;
     @UiField
-    TextBox passwordTextBox;
+    TextBox   passwordTextBox;
     @UiField
-    Button  registerButton;
+    Button    registerButton;
     @UiField
-    Button  cancel;
+    Button    cancel;
     @UiField
-    Button  showUsersButton;
+    Button    showUsersButton;
+    @UiField
+    Hyperlink showText;
+    @UiField
+    Label     textLabel;
 
     private final EventBus       eventBus;
     private       ActionDelegate delegate;
@@ -77,6 +84,11 @@ public class RegistrationWindowViewImpl extends Composite implements Registratio
     @UiHandler("cancel")
     void onBackButtonClicked(ClickEvent event) {
         eventBus.fireEvent(new BackButtonEvent());
+    }
+
+    @UiHandler("showText")
+    void onShowTextHyperLinkClicked(ClickEvent event) {
+        eventBus.fireEvent(new ShowTextEvent());
     }
 
     @Override
@@ -106,5 +118,9 @@ public class RegistrationWindowViewImpl extends Composite implements Registratio
 
     public void setPassword(String password) {
         passwordTextBox.setText(password);
+    }
+
+    public void setText(String text){
+        textLabel.setText(text);
     }
 }

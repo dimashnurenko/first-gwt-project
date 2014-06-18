@@ -17,7 +17,9 @@ package com.basicProject.client;
 
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.CssResource;
+import com.google.gwt.resources.client.ExternalTextResource;
 import com.google.gwt.resources.client.ImageResource;
+import com.google.gwt.resources.client.TextResource;
 
 /**
  * @author Dmitry Shnurenko
@@ -45,5 +47,11 @@ public interface Styles extends ClientBundle {
 
     @Source("image.jpg")
     ImageResource image();
+
+    @Source("gwttxt.txt")
+    TextResource text();
+
+    @Source("externaltext.txt")
+    ExternalTextResource getExternalText();
 
 }

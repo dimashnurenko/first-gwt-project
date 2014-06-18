@@ -15,6 +15,7 @@
  */
 package com.basicProject.client.registrationWindow;
 
+import com.basicProject.client.Styles;
 import com.basicProject.client.entity.User;
 import com.basicProject.client.eventbus.event.BackButtonEvent;
 import com.basicProject.client.eventbus.event.BackButtonEventHandler;
@@ -22,9 +23,14 @@ import com.basicProject.client.eventbus.event.RegistrationEvent;
 import com.basicProject.client.eventbus.event.RegistrationEventHandler;
 import com.basicProject.client.eventbus.event.ShowRegisterUsersEvent;
 import com.basicProject.client.eventbus.event.ShowRegisterUsersEventHandler;
+import com.basicProject.client.eventbus.event.ShowTextEvent;
+import com.basicProject.client.eventbus.event.ShowTextEventHandler;
 import com.basicProject.client.navigator.MainNavigator;
 import com.basicProject.client.showRegisterUsers.ShowRegisterUsersView;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.resources.client.ResourceCallback;
+import com.google.gwt.resources.client.ResourceException;
+import com.google.gwt.resources.client.TextResource;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasOneWidget;
 import com.google.gwt.user.client.ui.SimpleLayoutPanel;
@@ -39,6 +45,7 @@ import java.util.List;
 public class RegistrationWindowPresenter implements RegistrationWindowView.ActionDelegate,
                                                     RegistrationEventHandler,
                                                     ShowRegisterUsersEventHandler,
+                                                    ShowTextEventHandler,
                                                     BackButtonEventHandler {
 
     private RegistrationWindowView registrationWindowView;
@@ -47,21 +54,25 @@ public class RegistrationWindowPresenter implements RegistrationWindowView.Actio
     private EventBus               eventBus;
     private SimpleLayoutPanel      layoutPanel;
     private List<User>             users;
+    private Styles                 styles;
 
     @Inject
     public RegistrationWindowPresenter(RegistrationWindowView registrationWindowView,
                                        ShowRegisterUsersView registerUsersView,
                                        SimpleLayoutPanel layoutPanel,
+                                       Styles styles,
                                        EventBus eventBus) {
         this.registrationWindowView = registrationWindowView;
         this.layoutPanel = layoutPanel;
         this.eventBus = eventBus;
         this.registerUsersView = registerUsersView;
+        this.styles = styles;
         this.users = new ArrayList<>();
 
         this.eventBus.addHandler(RegistrationEvent.TYPE, this);
         this.eventBus.addHandler(ShowRegisterUsersEvent.TYPE, this);
         this.eventBus.addHandler(BackButtonEvent.TYPE, this);
+        this.eventBus.addHandler(ShowTextEvent.TYPE, this);
     }
 
     public void setMainNavigator(MainNavigator mainNavigator) {
@@ -78,7 +89,11 @@ public class RegistrationWindowPresenter implements RegistrationWindowView.Actio
         String email = registrationWindowView.getEmail();
         String password = registrationWindowView.getPassword();
 
-        User user = new User(login, email, password);
+        User user = new User.UserBuilder()
+                .login(login)
+                .email(email)
+                .password(password)
+                .build();
 
         users.add(user);
 
@@ -97,5 +112,25 @@ public class RegistrationWindowPresenter implements RegistrationWindowView.Actio
     @Override
     public void showAllUsersFromDataBase(ShowRegisterUsersEvent registerUsersEvent) {
         registerUsersView.showRegisterUsers(users);
+    }
+
+    @Override
+    public void showTextFromExternalTextResource(ShowTextEvent textEvent) {
+        try {
+            styles.getExternalText().getText(new ResourceCallback<TextResource>() {
+                @Override
+                public void onError(ResourceException e) {
+                    Window.alert("download external text failed..." + e.getMessage());
+                }
+
+                @Override
+                public void onSuccess(TextResource resource) {
+                    registrationWindowView.setText(resource.getText());
+                }
+            });
+
+        } catch (ResourceException e) {
+            Window.alert("download external text failed..." + e.getMessage());
+        }
     }
 }

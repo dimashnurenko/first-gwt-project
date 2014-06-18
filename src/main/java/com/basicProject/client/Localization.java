@@ -61,4 +61,6 @@ public interface Localization extends Constants {
     String showUsers();
 
     String backButton();
+
+    String showTextLabel();
 }
