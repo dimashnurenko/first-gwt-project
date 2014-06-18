@@ -13,8 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.basicProject.client;
+package com.basicProject.client.registrationWindow;
 
+import com.basicProject.client.Localization;
+import com.basicProject.client.Styles;
 import com.basicProject.client.entity.User;
 import com.basicProject.client.eventbus.event.BackButtonEvent;
 import com.basicProject.client.eventbus.event.RegistrationEvent;
