@@ -417,7 +417,7 @@ public class MainWindowPresenterTest /*extends GwtTestWithMockito*/ {
             }
         }).when(noteDialogWindowPresenter).showWindow((CallBackForNote)anyObject());
 
-        assertEquals(0,testEmployeeOne.getListOfNotes().size());
+        assertEquals(0, testEmployeeOne.getListOfNotes().size());
 
         presenter.onSelectedEmployee(testEmployeeOne);
         presenter.onAddNoteButtonClicked();
@@ -438,7 +438,7 @@ public class MainWindowPresenterTest /*extends GwtTestWithMockito*/ {
             }
         }).when(noteDialogWindowPresenter).showWindow((CallBackForNote)anyObject());
 
-        assertEquals(0,testEmployeeTwo.getListOfNotes().size());
+        assertEquals(0, testEmployeeTwo.getListOfNotes().size());
 
         presenter.onSelectedEmployee(testEmployeeTwo);
         presenter.onAddNoteButtonClicked();

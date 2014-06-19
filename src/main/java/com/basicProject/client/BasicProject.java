@@ -16,7 +16,6 @@
 package com.basicProject.client;
 
 import com.basicProject.client.inject.Injector;
-import com.basicProject.client.mainWindow.MainWindowPresenter;
 import com.basicProject.client.navigator.MainNavigator;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;

@@ -19,26 +19,18 @@ package com.basicProject.client.mainWindow;
 
 import com.basicProject.client.Localization;
 import com.basicProject.client.entity.Employee;
-import com.basicProject.client.entity.Note;
-import com.gargoylesoftware.htmlunit.javascript.host.HashChangeEvent;
 import com.google.gwt.cell.client.ButtonCell;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.HasAllMouseHandlers;
-import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
@@ -159,12 +151,12 @@ public class MainWindowViewImpl extends Composite implements MainWindowView {
     }
 
     @UiHandler("showNotes")
-    void onShowNotesButtonClicked(ClickEvent event){
+    void onShowNotesButtonClicked(ClickEvent event) {
         delegate.onShowNotesButtonClicked();
     }
 
     @UiHandler("registerButton")
-    void onRegistrationButtonClicked(ClickEvent event){
+    void onRegistrationButtonClicked(ClickEvent event) {
         delegate.onRegistrationButtonClicked();
     }
 

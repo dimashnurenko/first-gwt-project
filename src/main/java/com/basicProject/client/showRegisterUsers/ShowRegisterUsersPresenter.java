@@ -24,7 +24,7 @@ import com.google.inject.Singleton;
 @Singleton
 public class ShowRegisterUsersPresenter implements ShowRegisterUsersView.ActionDelegate {
 
-    private ShowRegisterUsersView showRegisterUsersView;
+    private final ShowRegisterUsersView showRegisterUsersView;
 
     @Inject
     public ShowRegisterUsersPresenter(ShowRegisterUsersView showRegisterUsersView) {

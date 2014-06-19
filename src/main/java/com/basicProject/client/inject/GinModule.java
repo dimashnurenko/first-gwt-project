@@ -15,7 +15,7 @@
  */
 package com.basicProject.client.inject;
 
-import com.basicProject.client.Styles;
+import com.basicProject.client.ClientBundleResources;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.inject.client.AbstractGinModule;
@@ -31,6 +31,6 @@ public class GinModule extends AbstractGinModule {
 
         bind(EventBus.class).to(SimpleEventBus.class).in(Singleton.class);
 
-        bind(Styles.class).in(Singleton.class);
+        bind(ClientBundleResources.class).in(Singleton.class);
     }
 }

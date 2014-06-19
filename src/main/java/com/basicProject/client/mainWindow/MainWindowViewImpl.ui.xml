@@ -2,7 +2,7 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:c='urn:import:com.google.gwt.user.cellview.client'>
 
-    <ui:with field="cssStyle" type="com.basicProject.client.Styles"/>
+    <ui:with field="cssStyle" type="com.basicProject.client.ClientBundleResources"/>
     <ui:with field="locale" type="com.basicProject.client.Localization"/>
 
     <g:DockLayoutPanel unit="PX" width="600px" height="600px" addStyleNames="{cssStyle.style.simplePanel}">

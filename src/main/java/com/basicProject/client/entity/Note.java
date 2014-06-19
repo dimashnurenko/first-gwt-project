@@ -23,7 +23,8 @@ public class Note {
     private String title;
     private String text;
 
-    public Note(){}
+    public Note() {
+    }
 
     public Note(String title, String text) {
         this.title = title;
@@ -64,13 +65,5 @@ public class Note {
 
     public void setText(String text) {
         this.text = text;
-    }
-
-    @Override
-    public String toString() {
-        return "Note{" +
-               "title='" + title + '\'' +
-               ", text='" + text + '\'' +
-               '}';
     }
 }

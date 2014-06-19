@@ -1,7 +1,7 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 
-    <ui:with field="cssStyle" type="com.basicProject.client.Styles"/>
+    <ui:with field="cssStyle" type="com.basicProject.client.ClientBundleResources"/>
     <ui:with field="locale" type="com.basicProject.client.Localization"/>
 
     <g:DockLayoutPanel unit="PX" width="200px" height="200px">
@@ -9,7 +9,6 @@
             <g:FlowPanel>
                 <g:Label text="{locale.titleNote}"/>
                 <g:TextBox ui:field="title"/>
-
                 <g:Label text="{locale.textNote}"/>
                 <g:TextArea ui:field="text"/>
             </g:FlowPanel>

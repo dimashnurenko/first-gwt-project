@@ -15,7 +15,6 @@
  */
 package com.basicProject.client.noteDialogWindow;
 
-import com.basicProject.client.entity.Employee;
 import com.basicProject.client.entity.Note;
 import com.basicProject.client.mvp.CallBackForNote;
 import com.google.inject.Inject;

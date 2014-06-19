@@ -39,18 +39,16 @@ import java.util.List;
 @Singleton
 public class MainWindowPresenter implements MainWindowView.ActionDelegate {
 
-    private final List<Employee>              employees;
-    private final List<Note>                  notes;
-    private final MainWindowView              view;
-    private final ShowNotesWindowView         showNotesWindowView;
-    private final CallBack                    editEmployeeCallBack;
-    private final CallBack                    addEmployeeCallBack;
-    private final CallBackForNote             callBackForNote;
-    private final DialogWindowPresenter       dialogWindowPresenter;
-    private final ShowNotesWindowPresenter    showNotesWindowPresenter;
-    private final RegistrationWindowPresenter registrationWindowPresenter;
-    private final NoteDialogWindowPresenter   noteDialogWindowPresenter;
-    private final Localization                localization;
+    private final List<Employee>            employees;
+    private final List<Note>                notes;
+    private final MainWindowView            view;
+    private final ShowNotesWindowView       showNotesWindowView;
+    private final CallBack                  editEmployeeCallBack;
+    private final CallBack                  addEmployeeCallBack;
+    private final CallBackForNote           callBackForNote;
+    private final DialogWindowPresenter     dialogWindowPresenter;
+    private final NoteDialogWindowPresenter noteDialogWindowPresenter;
+    private final Localization              localization;
 
     private Employee      selectedEmployee;
     private MainNavigator mainNavigator;
@@ -70,8 +68,6 @@ public class MainWindowPresenter implements MainWindowView.ActionDelegate {
         this.localization = localization;
         this.dialogWindowPresenter = dialogWindowPresenter;
         this.noteDialogWindowPresenter = noteDialogWindowPresenter;
-        this.showNotesWindowPresenter = showNotesWindowPresenter;
-        this.registrationWindowPresenter = registrationWindowPresenter;
         this.employees = new ArrayList<>();
         this.notes = new ArrayList<>();
 

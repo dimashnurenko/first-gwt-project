@@ -70,7 +70,7 @@ public class MainNavigatorTest {
     }
 
     @Test
-    public void mainWindowShouldBeAppearedWithFirstStartProgramme() throws Exception{
+    public void mainWindowShouldBeAppearedWithFirstStartProgramme() throws Exception {
         navigator.go(simpleLayoutPanel);
 
         verify(mainWindowPresenter).go(simpleLayoutPanel);

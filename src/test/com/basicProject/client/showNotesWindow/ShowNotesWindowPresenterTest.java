@@ -30,12 +30,12 @@ import static org.mockito.Mockito.verify;
 public class ShowNotesWindowPresenterTest {
 
     @Mock
-    ShowNotesWindowView showNotesWindowView;
+    private ShowNotesWindowView      showNotesWindowView;
     @InjectMocks
-    ShowNotesWindowPresenter showNotesWindowPresenter;
+    private ShowNotesWindowPresenter showNotesWindowPresenter;
 
     @Test
-    public void windowWithNotesShouldBeDisappeared() throws Exception{
+    public void windowWithNotesShouldBeDisappeared() throws Exception {
         showNotesWindowPresenter.onCancelButtonClicked();
 
         verify(showNotesWindowView).hideWindow();

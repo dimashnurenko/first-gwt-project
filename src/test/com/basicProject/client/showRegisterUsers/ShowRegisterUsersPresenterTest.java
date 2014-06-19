@@ -30,12 +30,12 @@ import static org.mockito.Mockito.verify;
 public class ShowRegisterUsersPresenterTest {
 
     @Mock
-    ShowRegisterUsersView showRegisterUsersView;
+    private ShowRegisterUsersView      showRegisterUsersView;
     @InjectMocks
-    ShowRegisterUsersPresenter presenter;
+    private ShowRegisterUsersPresenter presenter;
 
     @Test
-    public void windowWithRegisteredUsersShouldBeDisappeared() throws Exception{
+    public void windowWithRegisteredUsersShouldBeDisappeared() throws Exception {
         presenter.onCancelButtonClicked();
 
         verify(showRegisterUsersView).hideWindow();

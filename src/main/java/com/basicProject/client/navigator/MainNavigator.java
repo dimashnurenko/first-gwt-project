@@ -15,25 +15,31 @@
  */
 package com.basicProject.client.navigator;
 
+import com.basicProject.client.keyboardShortcut.KeyboardShortcut;
 import com.basicProject.client.mainWindow.MainWindowPresenter;
 import com.basicProject.client.registrationWindow.RegistrationWindowPresenter;
-import com.google.gwt.user.client.ui.HasOneWidget;
 import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 /**
  * @author Dmitry Shnurenko
  */
+@Singleton
 public class MainNavigator {
 
-    private RegistrationWindowPresenter registrationWindowPresenter;
-    private MainWindowPresenter         mainWindowPresenter;
-    private SimpleLayoutPanel           simpleLayoutPanel;
+    private final RegistrationWindowPresenter registrationWindowPresenter;
+    private final MainWindowPresenter         mainWindowPresenter;
+    private final KeyboardShortcut            keyboardShortcut;
+
+    private SimpleLayoutPanel simpleLayoutPanel;
 
     @Inject
     public MainNavigator(RegistrationWindowPresenter registrationWindowPresenter,
+                         KeyboardShortcut keyboardShortcut,
                          MainWindowPresenter mainWindowPresenter) {
         this.mainWindowPresenter = mainWindowPresenter;
+        this.keyboardShortcut = keyboardShortcut;
         this.mainWindowPresenter.setMainNavigator(this);
         this.registrationWindowPresenter = registrationWindowPresenter;
         this.registrationWindowPresenter.setMainNavigator(this);

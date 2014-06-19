@@ -15,8 +15,8 @@
  */
 package com.basicProject.client.registrationWindow;
 
+import com.basicProject.client.ClientBundleResources;
 import com.basicProject.client.Localization;
-import com.basicProject.client.Styles;
 import com.basicProject.client.entity.User;
 import com.basicProject.client.eventbus.event.BackButtonEvent;
 import com.basicProject.client.eventbus.event.BackButtonEventHandler;
@@ -52,25 +52,23 @@ public class RegistrationWindowPresenter implements RegistrationWindowView.Actio
                                                     ShowTextEventHandler,
                                                     BackButtonEventHandler {
 
-    private RegistrationWindowView registrationWindowView;
-    private ShowRegisterUsersView  registerUsersView;
-    private MainNavigator          mainNavigator;
-    private EventBus               eventBus;
-    private List<User>             users;
-    private Styles                 styles;
-    private Localization           localization;
+    private final RegistrationWindowView registrationWindowView;
+    private final ShowRegisterUsersView  registerUsersView;
+    private final EventBus               eventBus;
+    private final List<User>             users;
+    private final Localization           localization;
+
+    private MainNavigator mainNavigator;
 
     @Inject
     public RegistrationWindowPresenter(RegistrationWindowView registrationWindowView,
                                        ShowRegisterUsersView registerUsersView,
-                                       Styles styles,
                                        Localization localization,
                                        EventBus eventBus) {
         this.registrationWindowView = registrationWindowView;
         this.eventBus = eventBus;
         this.registerUsersView = registerUsersView;
         this.localization = localization;
-        this.styles = styles;
         this.users = new ArrayList<>();
 
         this.eventBus.addHandler(RegistrationEvent.TYPE, this);
@@ -93,11 +91,11 @@ public class RegistrationWindowPresenter implements RegistrationWindowView.Actio
         String email = registrationWindowView.getEmail();
         String password = registrationWindowView.getPassword();
 
-        if (!StringMatcher.match(Regex.LOGIN, login)) {
+        if (!StringMatcher.match(Regex.LOGIN, login) || login.isEmpty()) {
             registrationWindowView.setErrorLogin(localization.errorLogin());
-        } else if (!StringMatcher.match(Regex.EMAIL, email)) {
+        } else if (!StringMatcher.match(Regex.EMAIL, email) || email.isEmpty()) {
             registrationWindowView.setErrorEmail(localization.errorEmail());
-        } else if (!StringMatcher.match(Regex.PASSWORD, password)) {
+        } else if (!StringMatcher.match(Regex.PASSWORD, password) || password.isEmpty()) {
             registrationWindowView.setErrorPassword(localization.errorPassword());
         } else {
             registrationWindowView.setErrorLogin("");
@@ -133,7 +131,7 @@ public class RegistrationWindowPresenter implements RegistrationWindowView.Actio
     @Override
     public void showTextFromExternalTextResource(ShowTextEvent textEvent) {
         try {
-            styles.getExternalText().getText(new ResourceCallback<TextResource>() {
+            ClientBundleResources.INSTANCE.getExternalText().getText(new ResourceCallback<TextResource>() {
                 @Override
                 public void onError(ResourceException e) {
                     Window.alert("download external text failed..." + e.getMessage());

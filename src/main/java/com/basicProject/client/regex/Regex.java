@@ -20,7 +20,7 @@ package com.basicProject.client.regex;
  */
 public interface Regex {
 
-    String LOGIN    = "[a-z]*";
-    String EMAIL    = "[a-z]*";
-    String PASSWORD = "[a-z]*";
+    String LOGIN    = "^[a-z0-9_-]{3,12}$";
+    String EMAIL    = "^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$";
+    String PASSWORD = "^[a-z0-9_-]{6,18}$";
 }

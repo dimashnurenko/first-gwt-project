@@ -15,7 +15,7 @@
  */
 package com.basicProject.client.inject;
 
-import com.basicProject.client.Styles;
+import com.basicProject.client.ClientBundleResources;
 import com.basicProject.client.navigator.MainNavigator;
 import com.google.gwt.inject.client.GinModules;
 import com.google.gwt.inject.client.Ginjector;
@@ -28,6 +28,6 @@ public interface Injector extends Ginjector {
 
     MainNavigator getMainNavigator();
 
-    Styles getStyles();
+    ClientBundleResources getStyles();
 
 }

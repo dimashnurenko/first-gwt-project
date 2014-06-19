@@ -15,10 +15,7 @@
  */
 package com.basicProject.client.mvp;
 
-import com.basicProject.client.entity.Employee;
 import com.basicProject.client.entity.Note;
-
-import java.util.List;
 
 /**
  * @author Dmitry Shnurenko

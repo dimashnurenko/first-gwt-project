@@ -15,16 +15,14 @@
  */
 package com.basicProject.client.registrationWindow;
 
+import com.basicProject.client.ClientBundleResources;
 import com.basicProject.client.Localization;
-import com.basicProject.client.Styles;
 import com.basicProject.client.entity.User;
 import com.basicProject.client.eventbus.event.BackButtonEvent;
 import com.basicProject.client.eventbus.event.RegistrationEvent;
 import com.basicProject.client.eventbus.event.ShowRegisterUsersEvent;
 import com.basicProject.client.eventbus.event.ShowTextEvent;
 import com.basicProject.client.navigator.MainNavigator;
-import com.basicProject.client.registrationWindow.RegistrationWindowPresenter;
-import com.basicProject.client.registrationWindow.RegistrationWindowView;
 import com.basicProject.client.showRegisterUsers.ShowRegisterUsersView;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwtmockito.GwtMockitoTestRunner;
@@ -70,17 +68,17 @@ public class RegistrationWindowPresenterTest {
     @Mock
     private List<User>             users;
     @Mock
-    private Styles                 styles;
+    private ClientBundleResources  clientBundleResources;
     @Mock
     private Localization           localization;
 
     @InjectMocks
-    RegistrationWindowPresenter presenter;
+    private RegistrationWindowPresenter presenter;
 
     @Test
     public void userShouldBeAddedToDataBase() throws Exception {
         final String LOGIN = "login";
-        final String EMAIL = "email";
+        final String EMAIL = "email@com.ua";
         final String PASSWORD = "password";
 
         when(registrationWindowView.getLogin()).thenReturn(LOGIN);
@@ -147,32 +145,109 @@ public class RegistrationWindowPresenterTest {
 
     @Test
     public void textFromExternalTextResourceShouldBeShown() throws Exception {
-        final String TEXT = "Hello external text...";
+        final String TEXT = "getExternalText";
 
-        /*doAnswer(new Answer() {
+        doAnswer(new Answer() {
             @Override
             public Object answer(InvocationOnMock invocation) throws Throwable {
-                Object []args = invocation.getArguments();
-                ResourceCallback callback = (ResourceCallback)args[0];
-                doAnswer(new Answer() {
-                    @Override
-                    public Object answer(InvocationOnMock invocation) throws Throwable {
-                        Object [] args = invocation.getArguments();
-                        TextResource textResource = (TextResource)args[0];
+                Object[] args = invocation.getArguments();
+                String testtext = (String)args[0];
 
-                        assertEquals(textResource.getText(),TEXT);
+                assertEquals(testtext, TEXT);
 
-                        return null;
-                    }
-                }).when(callback).onSuccess((TextResource)anyObject());
-
-                callback.onSuccess((TextResource)anyObject());
                 return null;
             }
-        }).when(styles).getExternalText().getText((ResourceCallback)anyObject());*/
+        }).when(registrationWindowView).setText(anyString());
 
         presenter.showTextFromExternalTextResource(showTextEvent);
 
         verify(registrationWindowView).setText(anyString());
+    }
+
+    @Test
+    public void errorLoginMessageShouldBeShown() throws Exception {
+        final String ERROR_LOGIN = "25";
+
+        when(localization.errorLogin()).thenReturn(ERROR_LOGIN);
+        when(registrationWindowView.getLogin()).thenReturn(ERROR_LOGIN);
+
+        doAnswer(new Answer() {
+            @Override
+            public Object answer(InvocationOnMock invocation) throws Throwable {
+                Object args[] = invocation.getArguments();
+                String errorString = (String)args[0];
+
+                assertEquals(errorString, ERROR_LOGIN);
+
+                return null;
+            }
+        }).when(registrationWindowView).setErrorLogin(anyString());
+
+        presenter.saveEmployeeToDataBase(registrationEvent);
+
+        verify(registrationWindowView).getLogin();
+        verify(localization).errorLogin();
+        verify(registrationWindowView).setErrorLogin(anyString());
+    }
+
+    @Test
+    public void errorEmailMessageShouldBeShown() throws Exception {
+        final String LOGIN = "login";
+        final String ERROR_EMAIL = "email";
+
+        when(localization.errorEmail()).thenReturn(ERROR_EMAIL);
+        when(registrationWindowView.getLogin()).thenReturn(LOGIN);
+        when(registrationWindowView.getEmail()).thenReturn(ERROR_EMAIL);
+
+        doAnswer(new Answer() {
+            @Override
+            public Object answer(InvocationOnMock invocation) throws Throwable {
+                Object args[] = invocation.getArguments();
+                String errorString = (String)args[0];
+
+                assertEquals(errorString, ERROR_EMAIL);
+
+                return null;
+            }
+        }).when(registrationWindowView).setErrorEmail(anyString());
+
+        presenter.saveEmployeeToDataBase(registrationEvent);
+
+        verify(registrationWindowView).getLogin();
+        verify(registrationWindowView).getEmail();
+        verify(registrationWindowView).setErrorEmail(anyString());
+        verify(localization).errorEmail();
+    }
+
+    @Test
+    public void errorPasswordMessageShouldBeShown() throws Exception {
+        final String LOGIN = "login";
+        final String EMAIL = "email@com.ua";
+        final String ERROR_PASSWORD = "+*";
+
+        when(localization.errorPassword()).thenReturn(ERROR_PASSWORD);
+        when(registrationWindowView.getLogin()).thenReturn(LOGIN);
+        when(registrationWindowView.getEmail()).thenReturn(EMAIL);
+        when(registrationWindowView.getPassword()).thenReturn(ERROR_PASSWORD);
+
+        doAnswer(new Answer() {
+            @Override
+            public Object answer(InvocationOnMock invocation) throws Throwable {
+                Object args[] = invocation.getArguments();
+                String errorString = (String)args[0];
+
+                assertEquals(errorString, ERROR_PASSWORD);
+
+                return null;
+            }
+        }).when(registrationWindowView).setErrorPassword(anyString());
+
+        presenter.saveEmployeeToDataBase(registrationEvent);
+
+        verify(localization).errorPassword();
+        verify(registrationWindowView).getLogin();
+        verify(registrationWindowView).getEmail();
+        verify(registrationWindowView).getPassword();
+        verify(registrationWindowView).setErrorPassword(anyString());
     }
 }

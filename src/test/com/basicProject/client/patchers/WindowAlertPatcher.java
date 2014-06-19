@@ -26,7 +26,7 @@ import com.googlecode.gwt.test.patchers.PatchMethod;
 public class WindowAlertPatcher {
 
     @PatchMethod(override = true)
-    public static void alert(String message){
+    public static void alert(String message) {
 
     }
 }
