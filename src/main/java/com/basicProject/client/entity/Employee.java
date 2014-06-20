@@ -40,10 +40,6 @@ public class Employee {
         this.lastName = lastName;
     }
 
-    public void setListOfNotes(List<Note> list) {
-        this.listOfNotes = list;
-    }
-
     public List<Note> getListOfNotes() {
         return listOfNotes;
     }

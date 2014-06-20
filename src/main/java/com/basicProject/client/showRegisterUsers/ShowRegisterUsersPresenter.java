@@ -16,12 +16,10 @@
 package com.basicProject.client.showRegisterUsers;
 
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
 
 /**
  * @author Dmitry Shnurenko
  */
-@Singleton
 public class ShowRegisterUsersPresenter implements ShowRegisterUsersView.ActionDelegate {
 
     private final ShowRegisterUsersView showRegisterUsersView;

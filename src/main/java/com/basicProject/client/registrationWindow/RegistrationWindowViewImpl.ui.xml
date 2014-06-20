@@ -2,38 +2,38 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
         >
 
-    <ui:with field="cssStyle" type="com.basicProject.client.ClientBundleResources"/>
+    <ui:with field="cssStyle" type="com.basicProject.client.ClientDecoratedResources"/>
     <ui:with field="locale" type="com.basicProject.client.Localization"/>
 
-    <g:DockLayoutPanel unit="PX" width="600px" height="600px" addStyleNames="{cssStyle.style.simplePanel}">
+    <g:FlowPanel addStyleNames="{cssStyle.style.registrationPanel}">
+        <g:DockLayoutPanel unit="PX" width="600px" height="600px" addStyleNames="{cssStyle.style.simplePanel}">
+            <g:center>
+                <g:FlowPanel>
+                    <g:Label text="{locale.login}"/>
+                    <g:TextBox ui:field="loginTextBox"/>
+                    <g:Label ui:field="errorLogin" addStyleNames="{cssStyle.style.textBox}"/>
 
-        <g:center>
-            <g:FlowPanel>
-                <g:Label text="{locale.login}"/>
-                <g:TextBox ui:field="loginTextBox"/>
-                <g:Label ui:field="errorLogin" addStyleNames="{cssStyle.style.textBox}"/>
+                    <g:Label text="{locale.email}"/>
+                    <g:TextBox ui:field="emailTextBox"/>
+                    <g:Label ui:field="errorEmail" addStyleNames="{cssStyle.style.textBox}"/>
 
-                <g:Label text="{locale.email}"/>
-                <g:TextBox ui:field="emailTextBox"/>
-                <g:Label ui:field="errorEmail" addStyleNames="{cssStyle.style.textBox}"/>
+                    <g:Label text="{locale.password}"/>
+                    <g:PasswordTextBox ui:field="passwordTextBox"/>
+                    <g:Label ui:field="errorPassword" addStyleNames="{cssStyle.style.textBox}"/>
 
-                <g:Label text="{locale.password}"/>
-                <g:PasswordTextBox ui:field="passwordTextBox"/>
-                <g:Label ui:field="errorPassword" addStyleNames="{cssStyle.style.textBox}"/>
+                    <g:Label text="{cssStyle.text.getText}"/>
+                    <g:Hyperlink ui:field="showText" text="{locale.showExternalText}"/>
+                    <g:Label ui:field="textLabel"/>
+                </g:FlowPanel>
+            </g:center>
 
-                <g:Label text="{cssStyle.text.getText}"/>
-                <g:Hyperlink ui:field="showText" text="{locale.showTextLabel}"/>
-                <g:Label ui:field="textLabel"/>
-            </g:FlowPanel>
-        </g:center>
-
-        <g:south size="400">
-            <g:FlowPanel addStyleNames="{cssStyle.style.buttonPanelRegistrationPage}">
-                <g:Button text="{locale.registerButton}" ui:field="registerButton" addStyleNames="{cssStyle.style.button}"/>
-                <g:Button text="{locale.showUsers}" ui:field="showUsersButton" addStyleNames="{cssStyle.style.button}"/>
-                <g:Button text="{locale.backButton}" ui:field="cancel" addStyleNames="{cssStyle.style.button}"/>
-            </g:FlowPanel>
-        </g:south>
-    </g:DockLayoutPanel>
-
+            <g:south size="400">
+                <g:FlowPanel addStyleNames="{cssStyle.style.buttonPanelRegistrationPage}">
+                    <g:Button text="{locale.registerButton}" ui:field="registerButton" addStyleNames="{cssStyle.style.button}"/>
+                    <g:Button text="{locale.showUsers}" ui:field="showUsersButton" addStyleNames="{cssStyle.style.button}"/>
+                    <g:Button text="{locale.backButton}" ui:field="cancel" addStyleNames="{cssStyle.style.button}"/>
+                </g:FlowPanel>
+            </g:south>
+        </g:DockLayoutPanel>
+    </g:FlowPanel>
 </ui:UiBinder>

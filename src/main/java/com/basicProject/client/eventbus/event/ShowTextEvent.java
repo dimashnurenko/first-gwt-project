@@ -33,6 +33,6 @@ public class ShowTextEvent extends GwtEvent<ShowTextEventHandler> {
 
     @Override
     protected void dispatch(ShowTextEventHandler handler) {
-        handler.showTextFromExternalTextResource(this);
+        handler.onTextExternalResourceChange(this);
     }
 }

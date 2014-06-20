@@ -15,7 +15,7 @@
  */
 package com.basicProject.client.registrationWindow;
 
-import com.basicProject.client.ClientBundleResources;
+import com.basicProject.client.ClientDecoratedResources;
 import com.basicProject.client.Localization;
 import com.basicProject.client.entity.User;
 import com.basicProject.client.eventbus.event.BackButtonEvent;
@@ -27,11 +27,13 @@ import com.basicProject.client.showRegisterUsers.ShowRegisterUsersView;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwtmockito.GwtMockitoTestRunner;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
 import java.util.List;
@@ -50,27 +52,25 @@ import static org.mockito.Mockito.when;
 public class RegistrationWindowPresenterTest {
 
     @Mock
-    private RegistrationWindowView registrationWindowView;
+    private RegistrationWindowView   registrationWindowView;
     @Mock
-    private RegistrationEvent      registrationEvent;
+    private RegistrationEvent        registrationEvent;
     @Mock
-    private BackButtonEvent        backButtonEvent;
+    private BackButtonEvent          backButtonEvent;
     @Mock
-    private ShowRegisterUsersEvent showRegisterUsersEvent;
+    private ShowRegisterUsersEvent   showRegisterUsersEvent;
     @Mock
-    private ShowTextEvent          showTextEvent;
+    private ShowTextEvent            showTextEvent;
     @Mock
-    private ShowRegisterUsersView  registerUsersView;
+    private ShowRegisterUsersView    registerUsersView;
     @Mock
-    private MainNavigator          mainNavigator;
+    private MainNavigator            mainNavigator;
     @Mock
-    private EventBus               eventBus;
+    private EventBus                 eventBus;
     @Mock
-    private List<User>             users;
+    private ClientDecoratedResources clientDecoratedResources;
     @Mock
-    private ClientBundleResources  clientBundleResources;
-    @Mock
-    private Localization           localization;
+    private Localization             localization;
 
     @InjectMocks
     private RegistrationWindowPresenter presenter;
@@ -140,7 +140,6 @@ public class RegistrationWindowPresenterTest {
         presenter.showAllUsersFromDataBase(showRegisterUsersEvent);
 
         verify(registerUsersView).showRegisterUsers(anyList());
-        verify(registerUsersView).showWindow();
     }
 
     @Test
@@ -159,7 +158,7 @@ public class RegistrationWindowPresenterTest {
             }
         }).when(registrationWindowView).setText(anyString());
 
-        presenter.showTextFromExternalTextResource(showTextEvent);
+        presenter.onTextExternalResourceChange(showTextEvent);
 
         verify(registrationWindowView).setText(anyString());
     }

@@ -29,6 +29,8 @@ public interface ShowNotesWindowView extends View<ShowNotesWindowView.ActionDele
 
         void onCancelButtonClicked();
 
+        void showNotesSelectedEmployee(Employee selectedEmployee);
+
     }
 
     void hideWindow();

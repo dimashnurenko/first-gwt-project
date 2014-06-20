@@ -15,6 +15,7 @@
  */
 package com.basicProject.client.showNotesWindow;
 
+import com.basicProject.client.entity.Employee;
 import com.google.inject.Inject;
 
 /**
@@ -23,11 +24,19 @@ import com.google.inject.Inject;
 public class ShowNotesWindowPresenter implements ShowNotesWindowView.ActionDelegate {
 
     private final ShowNotesWindowView showNotesWindowView;
+    private       Employee            selectedEmployee;
 
     @Inject
     public ShowNotesWindowPresenter(final ShowNotesWindowView showNotesWindowView) {
         this.showNotesWindowView = showNotesWindowView;
         this.showNotesWindowView.setDelegate(this);
+    }
+
+    @Override
+    public void showNotesSelectedEmployee(Employee employee) {
+        this.selectedEmployee = employee;
+
+        showNotesWindowView.showWindow(selectedEmployee);
     }
 
     @Override

@@ -35,14 +35,13 @@ public class DialogWindowPresenter implements DialogWindowView.ActionDelegate {
 
     @Override
     public void onClickAddEmployee() {
-
         String firstName = view.getFirstName();
         String middleName = view.getMiddleName();
         String lastName = view.getLastName();
 
-        Employee newEmpl = new Employee(firstName, middleName, lastName);
+        Employee newEmployee = new Employee(firstName, middleName, lastName);
 
-        callBack.onChangeTableOfEmployee(newEmpl);
+        callBack.onChangeTableOfEmployee(newEmployee);
 
         view.hideWindow();
     }

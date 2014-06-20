@@ -2,34 +2,33 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:c='urn:import:com.google.gwt.user.cellview.client'>
 
-    <ui:with field="cssStyle" type="com.basicProject.client.ClientBundleResources"/>
+    <ui:with field="cssStyle" type="com.basicProject.client.ClientDecoratedResources"/>
     <ui:with field="locale" type="com.basicProject.client.Localization"/>
 
-    <g:DockLayoutPanel unit="PX" width="600px" height="600px" addStyleNames="{cssStyle.style.simplePanel}">
-        <g:north size="20">
-            <g:FlowPanel>
-                <g:Label ui:field="textBox" addStyleNames="{cssStyle.style.textBox}"/>
-            </g:FlowPanel>
-        </g:north>
+    <g:FlowPanel addStyleNames="{cssStyle.style.mainPanel}">
+        <g:DockLayoutPanel unit="PX" width="600px" height="600px" addStyleNames="{cssStyle.style.simplePanel}">
+            <g:north size="20">
+                <g:FlowPanel>
+                    <g:Label ui:field="textBox" addStyleNames="{cssStyle.style.textBox}"/>
+                </g:FlowPanel>
+            </g:north>
 
-        <g:center>
-            <g:FlowPanel>
-                <g:Image resource="{cssStyle.image}"/>
-                <!--<g:ScrollPanel height="100%" width="100%">-->
-                <c:CellTable addStyleNames='{cssStyle.style.cellTable}' pageSize="3" ui:field='tableOfEmployees'/>
-                <!--</g:ScrollPanel>-->
-            </g:FlowPanel>
-        </g:center>
+            <g:center>
+                <g:FlowPanel>
+                    <g:Image resource="{cssStyle.image}"/>
+                    <c:CellTable addStyleNames='{cssStyle.style.cellTable}' pageSize="3" ui:field='tableOfEmployees'/>
+                </g:FlowPanel>
+            </g:center>
 
-        <g:south size="250">
-            <g:FlowPanel addStyleNames="{cssStyle.style.buttonPanel}">
-                <g:Button text="{locale.addButton}" ui:field="addButton" addStyleNames="{cssStyle.style.button}"/>
-                <g:Button text="{locale.editButton}" ui:field="editButton" addStyleNames="{cssStyle.style.button}"/>
-                <g:Button text="{locale.removeButton}" ui:field="removeButton" addStyleNames="{cssStyle.style.button}"/>
-                <g:Button text="{locale.showNotes}" ui:field="showNotes" addStyleNames="{cssStyle.style.button}"/>
-                <g:Button text="{locale.registerButton}" ui:field="registerButton" addStyleNames="{cssStyle.style.button}"/>
-            </g:FlowPanel>
-        </g:south>
-    </g:DockLayoutPanel>
-
+            <g:south size="250">
+                <g:FlowPanel addStyleNames="{cssStyle.style.buttonPanel}">
+                    <g:Button text="{locale.addButton}" ui:field="addButton" addStyleNames="{cssStyle.style.button}"/>
+                    <g:Button text="{locale.editButton}" ui:field="editButton" addStyleNames="{cssStyle.style.button}"/>
+                    <g:Button text="{locale.removeButton}" ui:field="removeButton" addStyleNames="{cssStyle.style.button}"/>
+                    <g:Button text="{locale.showNotes}" ui:field="showNotes" addStyleNames="{cssStyle.style.button}"/>
+                    <g:Button text="{locale.registerButton}" ui:field="registerButton" addStyleNames="{cssStyle.style.button}"/>
+                </g:FlowPanel>
+            </g:south>
+        </g:DockLayoutPanel>
+    </g:FlowPanel>
 </ui:UiBinder>

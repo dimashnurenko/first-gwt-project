@@ -15,7 +15,7 @@
  */
 package com.basicProject.client.registrationWindow;
 
-import com.basicProject.client.ClientBundleResources;
+import com.basicProject.client.ClientDecoratedResources;
 import com.basicProject.client.Localization;
 import com.basicProject.client.entity.User;
 import com.basicProject.client.eventbus.event.BackButtonEvent;
@@ -37,7 +37,6 @@ import com.google.gwt.resources.client.TextResource;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasOneWidget;
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +44,6 @@ import java.util.List;
 /**
  * @author Dmitry Shnurenko
  */
-@Singleton
 public class RegistrationWindowPresenter implements RegistrationWindowView.ActionDelegate,
                                                     RegistrationEventHandler,
                                                     ShowRegisterUsersEventHandler,
@@ -129,9 +127,9 @@ public class RegistrationWindowPresenter implements RegistrationWindowView.Actio
     }
 
     @Override
-    public void showTextFromExternalTextResource(ShowTextEvent textEvent) {
+    public void onTextExternalResourceChange(ShowTextEvent textEvent) {
         try {
-            ClientBundleResources.INSTANCE.getExternalText().getText(new ResourceCallback<TextResource>() {
+            ClientDecoratedResources.INSTANCE.getExternalText().getText(new ResourceCallback<TextResource>() {
                 @Override
                 public void onError(ResourceException e) {
                     Window.alert("download external text failed..." + e.getMessage());

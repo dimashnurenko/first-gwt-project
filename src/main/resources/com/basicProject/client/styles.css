@@ -10,10 +10,10 @@
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
-    -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
-    -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
-    box-shadow: rgba(0,0,0,1) 0 1px 0;
-    text-shadow: rgba(0,0,0,.4) 0 1px 0;
+    -webkit-box-shadow: rgba(0, 0, 0, 1) 0 1px 0;
+    -moz-box-shadow: rgba(0, 0, 0, 1) 0 1px 0;
+    box-shadow: rgba(0, 0, 0, 1) 0 1px 0;
+    text-shadow: rgba(0, 0, 0, .4) 0 1px 0;
     color: white;
     font-size: 12px;
     font-family: Georgia, serif;
@@ -21,41 +21,53 @@
     vertical-align: middle;
     margin-left: 20px;
 }
+
 .button:hover {
     border-top-color: #28597a;
     background: #28597a;
     color: #ccc;
 }
+
 .button:active {
     border-top-color: #1b435e;
     background: #1b435e;
 }
 
 .cellTable {
-    position:absolute;
+    position: absolute;
     top: 1px;
     width: 600px;
-    border-collapse: collapse; border: 1px solid black;
+    border-collapse: collapse;
+    border: 1px solid black;
     background: lightgreen;
     border-bottom: 1px solid #ccc;
     text-align: center;
     margin: 0 auto;
 }
 
-.buttonPanel{
+.registrationPanel {
+    background: #8b4a7d;
+}
+
+.mainPanel {
+    background: #64a5a0;
+}
+
+.buttonPanel {
     margin: 10% auto;
     margin-left: 65px;
 }
 
-.buttonPanelRegistrationPage{
+.buttonPanelRegistrationPage {
     margin: 10% auto;
     margin-left: 0px;
 }
 
-.textBox{
+.textBox {
     color: red;
 }
-.simplePanel{
+
+.simplePanel {
     margin-top: 100px;
     margin-left: 450px;
 }

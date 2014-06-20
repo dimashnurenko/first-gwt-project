@@ -22,5 +22,5 @@ import com.google.gwt.event.shared.EventHandler;
  */
 public interface ShowTextEventHandler extends EventHandler {
 
-    void showTextFromExternalTextResource(ShowTextEvent textEvent);
+    void onTextExternalResourceChange(ShowTextEvent textEvent);
 }

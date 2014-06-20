@@ -22,6 +22,6 @@ import com.basicProject.client.entity.Employee;
  */
 public interface CallBack {
 
-    void onChangeTableOfEmployee(Employee empl);
+    void onChangeTableOfEmployee(Employee employee);
 
 }

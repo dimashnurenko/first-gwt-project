@@ -80,7 +80,7 @@ public class ShowNotesWindowViewImpl extends DialogBox implements ShowNotesWindo
 
     @UiHandler("cancel")
     public void onCancelButtonClicked(ClickEvent event) {
-        hide();
+        delegate.onCancelButtonClicked();
     }
 
     @Override

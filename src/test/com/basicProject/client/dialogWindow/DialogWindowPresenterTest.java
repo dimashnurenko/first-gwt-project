@@ -48,6 +48,7 @@ public class DialogWindowPresenterTest {
 
     @Test
     public void employeeShouldBeAddedInTable() throws Exception {
+        final Employee[] testEmployee = new Employee[1];
 
         final String FIRST_NAME = "1";
         final String MIDDLE_NAME = "2";
@@ -61,18 +62,17 @@ public class DialogWindowPresenterTest {
             @Override
             public Object answer(InvocationOnMock invocation) throws Throwable {
                 Object[] args = invocation.getArguments();
-                Employee testEmployee = (Employee)args[0];
-
-                assertEquals(testEmployee.getFirstName(), FIRST_NAME);
-                assertEquals(testEmployee.getMiddleName(), MIDDLE_NAME);
-                assertEquals(testEmployee.getLastName(), LAST_NAME);
-
+                testEmployee[0] = (Employee)args[0];
                 return null;
             }
         }).when(callBack).onChangeTableOfEmployee((Employee)anyObject());
 
         presenter.showWindow(callBack);
         presenter.onClickAddEmployee();
+
+        assertEquals(testEmployee[0].getFirstName(), FIRST_NAME);
+        assertEquals(testEmployee[0].getMiddleName(), MIDDLE_NAME);
+        assertEquals(testEmployee[0].getLastName(), LAST_NAME);
 
         verify(dialogWindowView).getFirstName();
         verify(dialogWindowView).getMiddleName();
@@ -85,7 +85,6 @@ public class DialogWindowPresenterTest {
 
     @Test
     public void dialogWindowShouldBeDisappeared() throws Exception {
-
         presenter.onClickCancel();
 
         verify(dialogWindowView).hideWindow();

@@ -25,9 +25,9 @@ import com.google.gwt.resources.client.TextResource;
 /**
  * @author Dmitry Shnurenko
  */
-public interface ClientBundleResources extends ClientBundle {
+public interface ClientDecoratedResources extends ClientBundle {
 
-    ClientBundleResources INSTANCE = GWT.create(ClientBundleResources.class);
+    ClientDecoratedResources INSTANCE = GWT.create(ClientDecoratedResources.class);
 
     public interface CssStyles extends CssResource {
 
@@ -42,6 +42,10 @@ public interface ClientBundleResources extends ClientBundle {
         String simplePanel();
 
         String buttonPanelRegistrationPage();
+
+        String mainPanel();
+
+        String registrationPanel();
 
     }
 

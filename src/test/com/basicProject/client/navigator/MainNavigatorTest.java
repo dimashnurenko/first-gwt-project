@@ -24,6 +24,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.mockito.Matchers.anyObject;
 import static org.mockito.Mockito.reset;
@@ -53,7 +54,6 @@ public class MainNavigatorTest {
 
         navigator.showMainWindow();
 
-        verify(simpleLayoutPanel).clear();
         verify(mainWindowPresenter).go((SimpleLayoutPanel)anyObject());
     }
 
@@ -65,7 +65,6 @@ public class MainNavigatorTest {
 
         navigator.showRegistrationWindow();
 
-        verify(simpleLayoutPanel).clear();
         verify(registrationWindowPresenter).go((SimpleLayoutPanel)anyObject());
     }
 

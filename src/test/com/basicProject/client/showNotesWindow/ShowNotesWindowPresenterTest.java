@@ -15,12 +15,19 @@
  */
 package com.basicProject.client.showNotesWindow;
 
+import com.basicProject.client.entity.Employee;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.stubbing.Answer;
 
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.anyObject;
+import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.verify;
 
 /**
@@ -31,6 +38,8 @@ public class ShowNotesWindowPresenterTest {
 
     @Mock
     private ShowNotesWindowView      showNotesWindowView;
+    @Mock
+    private Employee                 employee;
     @InjectMocks
     private ShowNotesWindowPresenter showNotesWindowPresenter;
 
@@ -39,6 +48,25 @@ public class ShowNotesWindowPresenterTest {
         showNotesWindowPresenter.onCancelButtonClicked();
 
         verify(showNotesWindowView).hideWindow();
+    }
+
+    @Test
+    public void windowWithNotesShouldBeAppeared() throws Exception {
+        final Employee testEmployee = new Employee("a", "a", "a");
+        doAnswer(new Answer() {
+            @Override
+            public Object answer(InvocationOnMock invocation) throws Throwable {
+                Object args[] = invocation.getArguments();
+                Employee employee = (Employee)args[0];
+
+                assertEquals(testEmployee, employee);
+
+                return null;
+            }
+        }).when(showNotesWindowView).showWindow((Employee)anyObject());
+        showNotesWindowPresenter.showNotesSelectedEmployee(testEmployee);
+
+        verify(showNotesWindowView).showWindow((Employee)anyObject());
     }
 
 }

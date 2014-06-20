@@ -22,10 +22,10 @@ import com.basicProject.client.entity.Note;
 import com.basicProject.client.mvp.CallBack;
 import com.basicProject.client.mvp.CallBackForNote;
 import com.basicProject.client.noteDialogWindow.NoteDialogWindowPresenter;
-import com.basicProject.client.showNotesWindow.ShowNotesWindowView;
 import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 import com.google.gwtmockito.GwtMockitoTestRunner;
 import com.googlecode.gwt.test.GwtModule;
+import com.googlecode.gwt.test.GwtTestWithMockito;
 
 import org.junit.Before;
 import org.junit.Ignore;
@@ -52,15 +52,13 @@ import static org.mockito.Mockito.when;
  * @author Dmitry Shnurenko
  */
 @GwtModule("com.basicProject.BasicProject")
-@RunWith(GwtMockitoTestRunner.class)
-public class MainWindowPresenterTest /*extends GwtTestWithMockito*/ {
+//@RunWith(GwtMockitoTestRunner.class)
+public class MainWindowPresenterTest extends GwtTestWithMockito {
 
     @Mock
     private MainWindowView            view;
     @Mock
     private DialogWindowPresenter     dialogWindowPresenter;
-    @Mock
-    private ShowNotesWindowView       showNotesWindowView;
     @Mock
     private NoteDialogWindowPresenter noteDialogWindowPresenter;
     @Mock
@@ -182,7 +180,6 @@ public class MainWindowPresenterTest /*extends GwtTestWithMockito*/ {
 
         verify(dialogWindowPresenter).showWindow((CallBack)anyObject());
         verify(view).setEmployeesList((List)anyObject());
-
     }
 
     @Test
@@ -230,7 +227,6 @@ public class MainWindowPresenterTest /*extends GwtTestWithMockito*/ {
 
         verify(dialogWindowPresenter).showWindowForEdit((CallBack)anyObject(), (Employee)anyObject());
         verify(view).setEmployeesList(anyList());
-
     }
 
     @Test
@@ -387,7 +383,6 @@ public class MainWindowPresenterTest /*extends GwtTestWithMockito*/ {
 
         verify(dialogWindowPresenter).showWindowForEdit((CallBack)anyObject(), (Employee)anyObject());
         verify(view).setExceptionMessage(anyString());
-
     }
 
     @Test
@@ -451,7 +446,6 @@ public class MainWindowPresenterTest /*extends GwtTestWithMockito*/ {
     }
 
     @Test
-    @Ignore
     public void errorMessageWithPatchersShouldBeAppear() throws Exception {
 
         when(localization.error()).thenReturn("error");

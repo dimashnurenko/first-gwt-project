@@ -20,12 +20,10 @@ import com.basicProject.client.mainWindow.MainWindowPresenter;
 import com.basicProject.client.registrationWindow.RegistrationWindowPresenter;
 import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
 
 /**
  * @author Dmitry Shnurenko
  */
-@Singleton
 public class MainNavigator {
 
     private final RegistrationWindowPresenter registrationWindowPresenter;
@@ -51,12 +49,10 @@ public class MainNavigator {
     }
 
     public void showMainWindow() {
-        simpleLayoutPanel.clear();
         mainWindowPresenter.go(simpleLayoutPanel);
     }
 
     public void showRegistrationWindow() {
-        simpleLayoutPanel.clear();
         registrationWindowPresenter.go(simpleLayoutPanel);
     }
 }
