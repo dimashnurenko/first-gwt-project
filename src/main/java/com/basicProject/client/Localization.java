@@ -69,4 +69,6 @@ public interface Localization extends Constants {
     String errorEmail();
 
     String errorPassword();
+
+    String employeeHasMessage();
 }

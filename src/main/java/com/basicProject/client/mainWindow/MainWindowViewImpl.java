@@ -62,8 +62,7 @@ public class MainWindowViewImpl extends Composite implements MainWindowView {
     @UiField
     Button              registerButton;
 
-    private ButtonCell addNoteButton;
-
+    private ButtonCell     addNoteButton;
     private ActionDelegate delegate;
 
     @Inject
@@ -104,7 +103,6 @@ public class MainWindowViewImpl extends Composite implements MainWindowView {
                 return local.addNote();
             }
         };
-
         addNote.setFieldUpdater(new FieldUpdater<Employee, String>() {
             @Override
             public void update(int index, Employee object, String value) {
@@ -122,6 +120,11 @@ public class MainWindowViewImpl extends Composite implements MainWindowView {
             @Override
             public void onSelectionChange(SelectionChangeEvent event) {
                 Employee selectedObject = selectionModel.getSelectedObject();
+                if (selectedObject.getListOfNotes().size() > 0) {
+                    textBox.setText(local.employeeHasMessage() + " " + selectedObject.getListOfNotes().size());
+                } else {
+                    textBox.setText("");
+                }
                 delegate.onSelectedEmployee(selectedObject);
             }
         });

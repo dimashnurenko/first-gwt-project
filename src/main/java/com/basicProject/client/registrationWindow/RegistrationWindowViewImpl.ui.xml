@@ -11,15 +11,15 @@
                 <g:FlowPanel>
                     <g:Label text="{locale.login}"/>
                     <g:TextBox ui:field="loginTextBox"/>
-                    <g:Label ui:field="errorLogin" addStyleNames="{cssStyle.style.textBox}"/>
+                    <g:Label ui:field="errorLogin" addStyleNames="{cssStyle.style.errorTextBoxRegisterForm}"/>
 
                     <g:Label text="{locale.email}"/>
                     <g:TextBox ui:field="emailTextBox"/>
-                    <g:Label ui:field="errorEmail" addStyleNames="{cssStyle.style.textBox}"/>
+                    <g:Label ui:field="errorEmail" addStyleNames="{cssStyle.style.errorTextBoxRegisterForm}"/>
 
                     <g:Label text="{locale.password}"/>
                     <g:PasswordTextBox ui:field="passwordTextBox"/>
-                    <g:Label ui:field="errorPassword" addStyleNames="{cssStyle.style.textBox}"/>
+                    <g:Label ui:field="errorPassword" addStyleNames="{cssStyle.style.errorTextBoxRegisterForm}"/>
 
                     <g:Label text="{cssStyle.text.getText}"/>
                     <g:Hyperlink ui:field="showText" text="{locale.showExternalText}"/>

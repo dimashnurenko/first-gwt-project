@@ -50,7 +50,7 @@
 }
 
 .mainPanel {
-    background: #64a5a0;
+    background: #53a500;
 }
 
 .buttonPanel {
@@ -63,7 +63,11 @@
     margin-left: 0px;
 }
 
-.textBox {
+.infoTextBoxOnMainPage {
+    color: #0521ff;
+}
+
+.errorTextBoxRegisterForm{
     color: red;
 }
 

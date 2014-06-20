@@ -37,7 +37,9 @@ public interface ClientDecoratedResources extends ClientBundle {
 
         String buttonPanel();
 
-        String textBox();
+        String infoTextBoxOnMainPage();
+
+        String errorTextBoxRegisterForm();
 
         String simplePanel();
 
