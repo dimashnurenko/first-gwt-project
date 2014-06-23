@@ -16,7 +16,7 @@
 package com.basicProject.client.dialogWindow;
 
 import com.basicProject.client.entity.Employee;
-import com.basicProject.client.mvp.CallBack;
+import com.basicProject.client.mainWindow.CallBack;
 import com.google.inject.Inject;
 
 /**

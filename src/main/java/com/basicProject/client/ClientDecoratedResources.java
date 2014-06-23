@@ -15,7 +15,6 @@
  */
 package com.basicProject.client;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.resources.client.ExternalTextResource;
@@ -26,8 +25,6 @@ import com.google.gwt.resources.client.TextResource;
  * @author Dmitry Shnurenko
  */
 public interface ClientDecoratedResources extends ClientBundle {
-
-    ClientDecoratedResources INSTANCE = GWT.create(ClientDecoratedResources.class);
 
     public interface CssStyles extends CssResource {
 

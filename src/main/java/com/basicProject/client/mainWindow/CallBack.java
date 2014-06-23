@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.basicProject.client.mvp;
+package com.basicProject.client.mainWindow;
 
 import com.basicProject.client.entity.Employee;
 

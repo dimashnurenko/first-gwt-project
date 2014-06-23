@@ -19,18 +19,14 @@ import com.basicProject.client.Localization;
 import com.basicProject.client.dialogWindow.DialogWindowPresenter;
 import com.basicProject.client.entity.Employee;
 import com.basicProject.client.entity.Note;
-import com.basicProject.client.mvp.CallBack;
-import com.basicProject.client.mvp.CallBackForNote;
+import com.basicProject.client.noteDialogWindow.CallBackForNote;
 import com.basicProject.client.noteDialogWindow.NoteDialogWindowPresenter;
 import com.google.gwt.user.client.ui.SimpleLayoutPanel;
-import com.google.gwtmockito.GwtMockitoTestRunner;
 import com.googlecode.gwt.test.GwtModule;
 import com.googlecode.gwt.test.GwtTestWithMockito;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
@@ -52,7 +48,6 @@ import static org.mockito.Mockito.when;
  * @author Dmitry Shnurenko
  */
 @GwtModule("com.basicProject.BasicProject")
-//@RunWith(GwtMockitoTestRunner.class)
 public class MainWindowPresenterTest extends GwtTestWithMockito {
 
     @Mock

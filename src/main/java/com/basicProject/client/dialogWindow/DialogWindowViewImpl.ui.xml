@@ -9,8 +9,10 @@
             <g:FlowPanel>
                 <g:Label text="{locale.firstName}"/>
                 <g:TextBox ui:field="firstName"/>
+
                 <g:Label text="{locale.middleName}"/>
                 <g:TextBox ui:field="middleName"/>
+
                 <g:Label text="{locale.lastName}"/>
                 <g:TextBox ui:field="lastName"/>
             </g:FlowPanel>

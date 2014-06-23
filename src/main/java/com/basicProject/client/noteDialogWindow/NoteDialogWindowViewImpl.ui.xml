@@ -9,6 +9,7 @@
             <g:FlowPanel>
                 <g:Label text="{locale.titleNote}"/>
                 <g:TextBox ui:field="title"/>
+
                 <g:Label text="{locale.textNote}"/>
                 <g:TextArea ui:field="text"/>
             </g:FlowPanel>

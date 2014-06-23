@@ -19,8 +19,7 @@ import com.basicProject.client.Localization;
 import com.basicProject.client.dialogWindow.DialogWindowPresenter;
 import com.basicProject.client.entity.Employee;
 import com.basicProject.client.entity.Note;
-import com.basicProject.client.mvp.CallBack;
-import com.basicProject.client.mvp.CallBackForNote;
+import com.basicProject.client.noteDialogWindow.CallBackForNote;
 import com.basicProject.client.navigator.MainNavigator;
 import com.basicProject.client.noteDialogWindow.NoteDialogWindowPresenter;
 import com.basicProject.client.showNotesWindow.ShowNotesWindowPresenter;
@@ -45,7 +44,6 @@ public class MainWindowPresenter implements MainWindowView.ActionDelegate {
     private final ShowNotesWindowPresenter  showNotesWindowPresenter;
     private final DialogWindowPresenter     dialogWindowPresenter;
     private final NoteDialogWindowPresenter noteDialogWindowPresenter;
-    private final Localization              localization;
 
     private Employee      selectedEmployee;
     private MainNavigator mainNavigator;
@@ -60,7 +58,6 @@ public class MainWindowPresenter implements MainWindowView.ActionDelegate {
         this.view = view;
         this.showNotesWindowPresenter = showNotesWindowPresenter;
         this.view.setDelegate(this);
-        this.localization = localization;
         this.dialogWindowPresenter = dialogWindowPresenter;
         this.noteDialogWindowPresenter = noteDialogWindowPresenter;
         this.employees = new ArrayList<>();

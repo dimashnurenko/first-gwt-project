@@ -17,7 +17,6 @@ package com.basicProject.client.noteDialogWindow;
 
 import com.basicProject.client.entity.Employee;
 import com.basicProject.client.entity.Note;
-import com.basicProject.client.mvp.CallBackForNote;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

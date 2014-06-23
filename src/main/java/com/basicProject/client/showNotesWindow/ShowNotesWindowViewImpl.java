@@ -31,8 +31,6 @@ import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
-import java.util.List;
-
 /**
  * @author Dmitry Shnurenko
  */
@@ -90,8 +88,7 @@ public class ShowNotesWindowViewImpl extends DialogBox implements ShowNotesWindo
 
     @Override
     public void showWindow(Employee employee) {
-        List<Note> noteList = employee.getListOfNotes();
-        tableOfNotes.setRowData(noteList);
+        tableOfNotes.setRowData(employee.getListOfNotes());
         show();
     }
 

@@ -25,10 +25,14 @@ import com.basicProject.client.eventbus.event.ShowTextEvent;
 import com.basicProject.client.navigator.MainNavigator;
 import com.basicProject.client.showRegisterUsers.ShowRegisterUsersPresenter;
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwtmockito.GwtMockitoTestRunner;
+import com.google.gwt.resources.client.ExternalTextResource;
+import com.google.gwt.resources.client.ResourceCallback;
+import com.google.gwt.resources.client.ResourceException;
+import com.google.gwt.resources.client.TextResource;
+import com.googlecode.gwt.test.GwtModule;
+import com.googlecode.gwt.test.GwtTestWithMockito;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
@@ -38,6 +42,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anyList;
+import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.verify;
@@ -46,11 +51,15 @@ import static org.mockito.Mockito.when;
 /**
  * @author Dmitry Shnurenko
  */
-@RunWith(GwtMockitoTestRunner.class)
-public class RegistrationWindowPresenterTest {
+@GwtModule("com.basicProject.BasicProject")
+public class RegistrationWindowPresenterTest extends GwtTestWithMockito {
 
     @Mock
     private RegistrationWindowView     registrationWindowView;
+    @Mock
+    private ClientDecoratedResources   clientDecoratedResources;
+    @Mock
+    private ExternalTextResource       externalTextResource;
     @Mock
     private RegistrationEvent          registrationEvent;
     @Mock
@@ -66,7 +75,9 @@ public class RegistrationWindowPresenterTest {
     @Mock
     private EventBus                   eventBus;
     @Mock
-    private ClientDecoratedResources   clientDecoratedResources;
+    private TextResource               textResource;
+    @Mock
+    private ResourceException          resourceException;
     @Mock
     private Localization               localization;
 
@@ -142,15 +153,27 @@ public class RegistrationWindowPresenterTest {
 
     @Test
     public void textFromExternalTextResourceShouldBeShown() throws Exception {
-        final String TEXT = "getExternalText";
+        final String TEXT = "Hello external text...";
+        when(textResource.getText()).thenReturn(TEXT);
+        when(clientDecoratedResources.getExternalText()).thenReturn(externalTextResource);
+
+        doAnswer(new Answer() {
+            @Override
+            public String answer(InvocationOnMock invocation) throws Throwable {
+                Object args[] = invocation.getArguments();
+                ResourceCallback callback = (ResourceCallback)args[0];
+                callback.onSuccess(textResource);
+                return null;
+            }
+        }).when(externalTextResource).getText((ResourceCallback)anyObject());
 
         doAnswer(new Answer() {
             @Override
             public Object answer(InvocationOnMock invocation) throws Throwable {
                 Object[] args = invocation.getArguments();
-                String testtext = (String)args[0];
+                String testText = (String)args[0];
 
-                assertEquals(testtext, TEXT);
+                assertEquals(testText, TEXT);
 
                 return null;
             }
@@ -159,6 +182,24 @@ public class RegistrationWindowPresenterTest {
         presenter.onTextExternalResourceChange(showTextEvent);
 
         verify(registrationWindowView).setText(anyString());
+        verify(textResource).getText();
+    }
+
+    @Test
+    public void errorMessageShouldBeShownWhenResourceCallBackError() throws Exception {
+        when(clientDecoratedResources.getExternalText()).thenReturn(externalTextResource);
+
+        doAnswer(new Answer() {
+            @Override
+            public Object answer(InvocationOnMock invocation) throws Throwable {
+                Object args[] = invocation.getArguments();
+                ResourceCallback<TextResource> callback = (ResourceCallback)args[0];
+                callback.onError(resourceException);
+                return null;
+            }
+        }).when(externalTextResource).getText((ResourceCallback)anyObject());
+
+        presenter.onTextExternalResourceChange(showTextEvent);
     }
 
     @Test

@@ -51,8 +51,8 @@ public class RegistrationWindowPresenter implements RegistrationWindowView.Actio
                                                     BackButtonEventHandler {
 
     private final RegistrationWindowView     registrationWindowView;
+    private final ClientDecoratedResources   clientDecoratedResources;
     private final ShowRegisterUsersPresenter registerUsersPresenter;
-    private final EventBus                   eventBus;
     private final List<User>                 users;
     private final Localization               localization;
 
@@ -62,17 +62,18 @@ public class RegistrationWindowPresenter implements RegistrationWindowView.Actio
     public RegistrationWindowPresenter(RegistrationWindowView registrationWindowView,
                                        ShowRegisterUsersPresenter registerUsersPresenter,
                                        Localization localization,
-                                       EventBus eventBus) {
+                                       EventBus eventBus,
+                                       ClientDecoratedResources clientDecoratedResources) {
         this.registrationWindowView = registrationWindowView;
-        this.eventBus = eventBus;
+        this.clientDecoratedResources = clientDecoratedResources;
         this.registerUsersPresenter = registerUsersPresenter;
         this.localization = localization;
         this.users = new ArrayList<>();
 
-        this.eventBus.addHandler(RegistrationEvent.TYPE, this);
-        this.eventBus.addHandler(ShowRegisterUsersEvent.TYPE, this);
-        this.eventBus.addHandler(BackButtonEvent.TYPE, this);
-        this.eventBus.addHandler(ShowTextEvent.TYPE, this);
+        eventBus.addHandler(RegistrationEvent.TYPE, this);
+        eventBus.addHandler(ShowRegisterUsersEvent.TYPE, this);
+        eventBus.addHandler(BackButtonEvent.TYPE, this);
+        eventBus.addHandler(ShowTextEvent.TYPE, this);
     }
 
     public void setMainNavigator(MainNavigator mainNavigator) {
@@ -128,7 +129,7 @@ public class RegistrationWindowPresenter implements RegistrationWindowView.Actio
     @Override
     public void onTextExternalResourceChange(ShowTextEvent textEvent) {
         try {
-            ClientDecoratedResources.INSTANCE.getExternalText().getText(new ResourceCallback<TextResource>() {
+            clientDecoratedResources.getExternalText().getText(new ResourceCallback<TextResource>() {
                 @Override
                 public void onError(ResourceException e) {
                     Window.alert("download external text failed..." + e.getMessage());
