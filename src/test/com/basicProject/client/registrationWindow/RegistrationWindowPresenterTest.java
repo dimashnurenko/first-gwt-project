@@ -23,17 +23,15 @@ import com.basicProject.client.eventbus.event.RegistrationEvent;
 import com.basicProject.client.eventbus.event.ShowRegisterUsersEvent;
 import com.basicProject.client.eventbus.event.ShowTextEvent;
 import com.basicProject.client.navigator.MainNavigator;
-import com.basicProject.client.showRegisterUsers.ShowRegisterUsersView;
+import com.basicProject.client.showRegisterUsers.ShowRegisterUsersPresenter;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwtmockito.GwtMockitoTestRunner;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
-import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
 import java.util.List;
@@ -52,25 +50,25 @@ import static org.mockito.Mockito.when;
 public class RegistrationWindowPresenterTest {
 
     @Mock
-    private RegistrationWindowView   registrationWindowView;
+    private RegistrationWindowView     registrationWindowView;
     @Mock
-    private RegistrationEvent        registrationEvent;
+    private RegistrationEvent          registrationEvent;
     @Mock
-    private BackButtonEvent          backButtonEvent;
+    private BackButtonEvent            backButtonEvent;
     @Mock
-    private ShowRegisterUsersEvent   showRegisterUsersEvent;
+    private ShowRegisterUsersEvent     showRegisterUsersEvent;
     @Mock
-    private ShowTextEvent            showTextEvent;
+    private ShowTextEvent              showTextEvent;
     @Mock
-    private ShowRegisterUsersView    registerUsersView;
+    private ShowRegisterUsersPresenter registerUsersPresenter;
     @Mock
-    private MainNavigator            mainNavigator;
+    private MainNavigator              mainNavigator;
     @Mock
-    private EventBus                 eventBus;
+    private EventBus                   eventBus;
     @Mock
-    private ClientDecoratedResources clientDecoratedResources;
+    private ClientDecoratedResources   clientDecoratedResources;
     @Mock
-    private Localization             localization;
+    private Localization               localization;
 
     @InjectMocks
     private RegistrationWindowPresenter presenter;
@@ -95,7 +93,7 @@ public class RegistrationWindowPresenterTest {
 
                 return null;
             }
-        }).when(registerUsersView).showRegisterUsers(anyList());
+        }).when(registerUsersPresenter).showUsersFromDataBase(anyList());
 
         presenter.showAllUsersFromDataBase(showRegisterUsersEvent);
         presenter.saveEmployeeToDataBase(registrationEvent);
@@ -114,7 +112,7 @@ public class RegistrationWindowPresenterTest {
 
                 return null;
             }
-        }).when(registerUsersView).showRegisterUsers(anyList());
+        }).when(registerUsersPresenter).showUsersFromDataBase(anyList());
 
         presenter.showAllUsersFromDataBase(showRegisterUsersEvent);
 
@@ -139,7 +137,7 @@ public class RegistrationWindowPresenterTest {
     public void registeredUsersFromDataBaseShouldBeShown() throws Exception {
         presenter.showAllUsersFromDataBase(showRegisterUsersEvent);
 
-        verify(registerUsersView).showRegisterUsers(anyList());
+        verify(registerUsersPresenter).showUsersFromDataBase(anyList());
     }
 
     @Test

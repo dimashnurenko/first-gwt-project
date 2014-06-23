@@ -121,7 +121,7 @@ public class MainWindowViewImpl extends Composite implements MainWindowView {
             public void onSelectionChange(SelectionChangeEvent event) {
                 Employee selectedObject = selectionModel.getSelectedObject();
                 if (selectedObject.getListOfNotes().size() > 0) {
-                    textBox.setText(local.employeeHasMessage() + " " + selectedObject.getListOfNotes().size());
+                    textBox.setText(local.employeeHasMessage() + " " + "(" + selectedObject.getListOfNotes().size() + ")");
                 } else {
                     textBox.setText("");
                 }

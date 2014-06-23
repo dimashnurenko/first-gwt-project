@@ -31,6 +31,8 @@ public interface ShowRegisterUsersView extends View<ShowRegisterUsersView.Action
 
         void onCancelButtonClicked();
 
+        void showUsersFromDataBase(List<User> list);
+
     }
 
     void hideWindow();

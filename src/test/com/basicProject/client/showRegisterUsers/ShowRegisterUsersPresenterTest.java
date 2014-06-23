@@ -41,4 +41,12 @@ public class ShowRegisterUsersPresenterTest {
 
         verify(showRegisterUsersView).hideWindow();
     }
+
+    @Test
+    public void registeredUsersShouldBeShown() throws Exception {
+        presenter.showUsersFromDataBase(anyList());
+
+        verify(showRegisterUsersView).showRegisterUsers(anyList());
+        verify(showRegisterUsersView).showWindow();
+    }
 }

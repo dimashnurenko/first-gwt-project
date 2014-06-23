@@ -29,7 +29,7 @@ import com.basicProject.client.eventbus.event.ShowTextEventHandler;
 import com.basicProject.client.navigator.MainNavigator;
 import com.basicProject.client.regex.Regex;
 import com.basicProject.client.regex.StringMatcher;
-import com.basicProject.client.showRegisterUsers.ShowRegisterUsersView;
+import com.basicProject.client.showRegisterUsers.ShowRegisterUsersPresenter;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.resources.client.ResourceCallback;
 import com.google.gwt.resources.client.ResourceException;
@@ -50,22 +50,22 @@ public class RegistrationWindowPresenter implements RegistrationWindowView.Actio
                                                     ShowTextEventHandler,
                                                     BackButtonEventHandler {
 
-    private final RegistrationWindowView registrationWindowView;
-    private final ShowRegisterUsersView  registerUsersView;
-    private final EventBus               eventBus;
-    private final List<User>             users;
-    private final Localization           localization;
+    private final RegistrationWindowView     registrationWindowView;
+    private final ShowRegisterUsersPresenter registerUsersPresenter;
+    private final EventBus                   eventBus;
+    private final List<User>                 users;
+    private final Localization               localization;
 
     private MainNavigator mainNavigator;
 
     @Inject
     public RegistrationWindowPresenter(RegistrationWindowView registrationWindowView,
-                                       ShowRegisterUsersView registerUsersView,
+                                       ShowRegisterUsersPresenter registerUsersPresenter,
                                        Localization localization,
                                        EventBus eventBus) {
         this.registrationWindowView = registrationWindowView;
         this.eventBus = eventBus;
-        this.registerUsersView = registerUsersView;
+        this.registerUsersPresenter = registerUsersPresenter;
         this.localization = localization;
         this.users = new ArrayList<>();
 
@@ -122,8 +122,7 @@ public class RegistrationWindowPresenter implements RegistrationWindowView.Actio
 
     @Override
     public void showAllUsersFromDataBase(ShowRegisterUsersEvent registerUsersEvent) {
-        registerUsersView.showRegisterUsers(users);
-        registerUsersView.showWindow();
+        registerUsersPresenter.showUsersFromDataBase(users);
     }
 
     @Override

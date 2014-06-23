@@ -64,6 +64,7 @@ public class ShowNotesWindowPresenterTest {
                 return null;
             }
         }).when(showNotesWindowView).showWindow((Employee)anyObject());
+
         showNotesWindowPresenter.showNotesSelectedEmployee(testEmployee);
 
         verify(showNotesWindowView).showWindow((Employee)anyObject());

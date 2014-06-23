@@ -15,7 +15,10 @@
  */
 package com.basicProject.client.showRegisterUsers;
 
+import com.basicProject.client.entity.User;
 import com.google.inject.Inject;
+
+import java.util.List;
 
 /**
  * @author Dmitry Shnurenko
@@ -28,6 +31,12 @@ public class ShowRegisterUsersPresenter implements ShowRegisterUsersView.ActionD
     public ShowRegisterUsersPresenter(ShowRegisterUsersView showRegisterUsersView) {
         this.showRegisterUsersView = showRegisterUsersView;
         this.showRegisterUsersView.setDelegate(this);
+    }
+
+    @Override
+    public void showUsersFromDataBase(List<User> list) {
+        showRegisterUsersView.showRegisterUsers(list);
+        showRegisterUsersView.showWindow();
     }
 
     @Override
